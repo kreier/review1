@@ -5,17 +5,18 @@ target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the
 target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
 review_date: "2026-10-30"
 scores:
-  overall: 8.9
+  overall: 8.5
   architecture: 9.3
   code_quality: 9.1
   security: 8.4
-  documentation: 9.2
-summary: "An exemplary assistive engineering project featuring a clean separation between high-level multimodal reasoning (Gemini 3.8 Flash) and zero-leakage local voice processing (Zipformer ONNX). Outstanding testing culture across both Python backend and React Native mobile client."
+  documentation: 7.0
+summary: "An exemplary assistive engineering project featuring a clean separation between high-level multimodal reasoning (Gemini 3.8 Flash) and zero-leakage local voice processing (Zipformer ONNX). Outstanding testing culture across both Python backend and React Native mobile client, although the root README exhibits severe architectural ambiguity and conflicting entry points."
 key_strengths:
   - "Rigorous state machine modeling in mobile turnController ensuring single-inflight operation"
   - "Native Android volume key interception for blind user accessibility without screen interaction"
   - "Strong privacy architecture: raw voice audio is processed locally on CPU and never leaves the server"
 key_weaknesses:
+  - "Root README exhibits significant architectural disconnect (desktop WebRTC vs mobile app, speculative LiDAR sensor photo without code integration)"
   - "In-memory WorkGate admission control prevents horizontal scaling across multiple container instances"
   - "Zipformer ASR model weights restricted by CC BY-NC-ND 4.0 license"
   - "Absence of automated static analysis security scanning (e.g., Bandit or Snyk) in CI pipeline"
@@ -56,6 +57,19 @@ security_findings:
     description: "Repository lacks a defined software license, posing IP and redistribution ambiguities."
     evidence: "Root repository contains no LICENSE file, leaving default all-rights-reserved copyright status."
     recommendation: "Add an explicit open-source license file (e.g., Apache-2.0 or MIT) to clarify intellectual property."
+  - id: "SEC-CLAUDE-004"
+    severity: "LOW"
+    status: "verified"
+    confidence: 0.95
+    category: "documentation_architecture"
+    title: "Root README Architectural Disconnect and Conflicting Entry Points"
+    file: "README.md"
+    line_start: 16
+    line_end: 131
+    affected_function: "README"
+    description: "Root README presents a desktop WebRTC Chrome demo instead of the core mobile app, showcases an unintegrated VL53L9CX ToF LiDAR sensor, and contains unedited notes of author uncertainty regarding version differences."
+    evidence: "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'"
+    recommendation: "Replace root README with a clear client-server architecture diagram separating the Android app from the FastAPI Docker backend."
 ---
 
 # Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị

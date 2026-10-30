@@ -94,6 +94,7 @@ Use the master prompt or specialized prompts:
 - 🏛️ Architecture & Modularity: [`prompts/architecture.md`](./prompts/architecture.md)
 - 🛡️ Security & Supply Chain: [`prompts/security.md`](./prompts/security.md)
 - 🧪 Code Quality & Testing: [`prompts/code-quality.md`](./prompts/code-quality.md)
+- 📖 Onboarding & Documentation Reality: [`prompts/documentation.md`](./prompts/documentation.md)
 
 Feed your target codebase context to different frontier AI models:
 - **Claude 3.7 Sonnet**

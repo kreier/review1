@@ -34,6 +34,12 @@ This roadmap structures the continuous enhancement of the multi-model repository
   - Upgraded to Node.js 22 LTS.
   - Enforce analyzer failure halting: distinguish missing target from failed analysis (no unconditional `|| true`).
   - Added automated test and report validation stages before deployment.
+- [x] **v1.1.0 — Onboarding Reality & Architectural Disambiguation**:
+  - Added dedicated criteria to 15 investigation dimensions evaluating root "front-door" sanity vs operational code reality.
+  - Disambiguated container roles (production Docker backend vs local browser WebRTC prototyping).
+  - Explicitly classified media pipelines (discrete snapshot photos vs continuous streaming) and speech processing (local CPU Zipformer STT input vs Android native TTS output).
+  - Structured version evolution mapping (tracing feature delta across milestone releases v0.2, v0.3, v0.4).
+  - Added specialized prompt `prompts/documentation.md` for Onboarding, Architecture Disambiguation & Reality Auditing.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-30T07:00:17.428Z",
+  "updated_at": "2026-10-30T07:48:41.797Z",
   "target_repo": "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)",
   "model_count": 3,
   "models": [
@@ -17,20 +17,20 @@
     }
   ],
   "average_scores": {
-    "overall": 8.8,
+    "overall": 8.3,
     "architecture": 9.2,
     "code_quality": 8.9,
     "security": 8.3,
-    "documentation": 9
+    "documentation": 6.9
   },
   "score_comparison": [
     {
       "metric": "Overall Score",
       "key": "overall",
-      "average": 8.8,
-      "claude-3-7-sonnet": 8.9,
-      "gemini-3-8-flash": 8.8,
-      "gpt-4o": 8.6
+      "average": 8.3,
+      "claude-3-7-sonnet": 8.5,
+      "gemini-3-8-flash": 8.3,
+      "gpt-4o": 8.2
     },
     {
       "metric": "Architecture",
@@ -59,14 +59,14 @@
     {
       "metric": "Documentation",
       "key": "documentation",
-      "average": 9,
-      "claude-3-7-sonnet": 9.2,
-      "gemini-3-8-flash": 9,
-      "gpt-4o": 8.9
+      "average": 6.9,
+      "claude-3-7-sonnet": 7,
+      "gemini-3-8-flash": 6.8,
+      "gpt-4o": 6.9
     }
   ],
   "security_audit": {
-    "total_findings": 9,
+    "total_findings": 12,
     "clusters": [
       {
         "id": "CLUSTER-1",
@@ -100,6 +100,24 @@
             "evidence": "FastAPI route definitions in app/main.py (@app.get('/health') and @app.post('/api/webrtc/offer')) do not apply rate limiting middleware.",
             "impact": "",
             "recommendation": "Deploy a reverse proxy (e.g., Caddy or Nginx) with rate-limiting directives, or attach slowapi middleware.",
+            "reported_by": "Claude 3.7 Sonnet",
+            "model_id": "claude-3-7-sonnet"
+          },
+          {
+            "id": "SEC-CLAUDE-004",
+            "severity": "LOW",
+            "status": "verified",
+            "confidence": 0.95,
+            "category": "documentation_architecture",
+            "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+            "file": "README.md",
+            "line_start": 16,
+            "line_end": 131,
+            "affected_function": "README",
+            "description": "Root README presents a desktop WebRTC Chrome demo instead of the core mobile app, showcases an unintegrated VL53L9CX ToF LiDAR sensor, and contains unedited notes of author uncertainty regarding version differences.",
+            "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+            "impact": "",
+            "recommendation": "Replace root README with a clear client-server architecture diagram separating the Android app from the FastAPI Docker backend.",
             "reported_by": "Claude 3.7 Sonnet",
             "model_id": "claude-3-7-sonnet"
           },
@@ -277,6 +295,60 @@
             "model_id": "gpt-4o"
           }
         ]
+      },
+      {
+        "id": "CLUSTER-4",
+        "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+        "file": "README.md",
+        "severity": "LOW",
+        "category": "documentation_architecture",
+        "status": "verified",
+        "confidence": 0.96,
+        "description": "The root README instructs users to launch a local desktop WebRTC Chrome demo (app.main:app) while the production mobile API is app.mobile_api:app. It also showcases speculative hardware (VL53L9CX ToF LiDAR) without codebase integration, and contains explicit author confusion notes regarding versions and tokens.",
+        "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+        "recommendation": "Restructure root README with a unified architectural diagram clearly separating the Android client, the FastAPI Docker container, the local Zipformer STT engine, and the Gemini 3.8 Flash cloud API.",
+        "reportedByModels": [
+          "Gemini 3.8 Flash",
+          "GPT-4o"
+        ],
+        "instances": [
+          {
+            "id": "SEC-GEMINI-004",
+            "severity": "LOW",
+            "status": "verified",
+            "confidence": 0.96,
+            "category": "documentation_architecture",
+            "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+            "file": "README.md",
+            "line_start": 16,
+            "line_end": 131,
+            "affected_function": "README & onboarding documentation",
+            "description": "The root README instructs users to launch a local desktop WebRTC Chrome demo (app.main:app) while the production mobile API is app.mobile_api:app. It also showcases speculative hardware (VL53L9CX ToF LiDAR) without codebase integration, and contains explicit author confusion notes regarding versions and tokens.",
+            "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+            "impact": "Creates severe cognitive friction, onboarding failure, and uncertainty for reviewers and engineers attempting to operate the system.",
+            "recommendation": "Restructure root README with a unified architectural diagram clearly separating the Android client, the FastAPI Docker container, the local Zipformer STT engine, and the Gemini 3.8 Flash cloud API.",
+            "reported_by": "Gemini 3.8 Flash",
+            "model_id": "gemini-3-8-flash"
+          },
+          {
+            "id": "SEC-GPT4O-004",
+            "severity": "LOW",
+            "status": "verified",
+            "confidence": 0.94,
+            "category": "documentation_architecture",
+            "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+            "file": "README.md",
+            "line_start": 16,
+            "line_end": 131,
+            "affected_function": "README",
+            "description": "Root README prioritizes an internal desktop WebRTC demo over the production mobile client and contains unresolved author notes regarding version functionality.",
+            "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+            "impact": "",
+            "recommendation": "Restructure root README to clearly document the Android client, the FastAPI Docker container, and the milestone progression.",
+            "reported_by": "GPT-4o",
+            "model_id": "gpt-4o"
+          }
+        ]
       }
     ]
   },
@@ -289,19 +361,20 @@
       "target_commit": "d9ba1e0d42e1241471b1fb58df1efb9d345c6721",
       "review_date": "2026-10-30",
       "scores": {
-        "overall": 8.9,
+        "overall": 8.5,
         "architecture": 9.3,
         "code_quality": 9.1,
         "security": 8.4,
-        "documentation": 9.2
+        "documentation": 7
       },
-      "summary": "An exemplary assistive engineering project featuring a clean separation between high-level multimodal reasoning (Gemini 3.8 Flash) and zero-leakage local voice processing (Zipformer ONNX). Outstanding testing culture across both Python backend and React Native mobile client.",
+      "summary": "An exemplary assistive engineering project featuring a clean separation between high-level multimodal reasoning (Gemini 3.8 Flash) and zero-leakage local voice processing (Zipformer ONNX). Outstanding testing culture across both Python backend and React Native mobile client, although the root README exhibits severe architectural ambiguity and conflicting entry points.",
       "key_strengths": [
         "Rigorous state machine modeling in mobile turnController ensuring single-inflight operation",
         "Native Android volume key interception for blind user accessibility without screen interaction",
         "Strong privacy architecture: raw voice audio is processed locally on CPU and never leaves the server"
       ],
       "key_weaknesses": [
+        "Root README exhibits significant architectural disconnect (desktop WebRTC vs mobile app, speculative LiDAR sensor photo without code integration)",
         "In-memory WorkGate admission control prevents horizontal scaling across multiple container instances",
         "Zipformer ASR model weights restricted by CC BY-NC-ND 4.0 license",
         "Absence of automated static analysis security scanning (e.g., Bandit or Snyk) in CI pipeline"
@@ -357,6 +430,24 @@
           "recommendation": "Add an explicit open-source license file (e.g., Apache-2.0 or MIT) to clarify intellectual property.",
           "reported_by": "Claude 3.7 Sonnet",
           "model_id": "claude-3-7-sonnet"
+        },
+        {
+          "id": "SEC-CLAUDE-004",
+          "severity": "LOW",
+          "status": "verified",
+          "confidence": 0.95,
+          "category": "documentation_architecture",
+          "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+          "file": "README.md",
+          "line_start": 16,
+          "line_end": 131,
+          "affected_function": "README",
+          "description": "Root README presents a desktop WebRTC Chrome demo instead of the core mobile app, showcases an unintegrated VL53L9CX ToF LiDAR sensor, and contains unedited notes of author uncertainty regarding version differences.",
+          "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+          "impact": "",
+          "recommendation": "Replace root README with a clear client-server architecture diagram separating the Android app from the FastAPI Docker backend.",
+          "reported_by": "Claude 3.7 Sonnet",
+          "model_id": "claude-3-7-sonnet"
         }
       ],
       "markdown": "# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị\n**Reviewer:** Claude 3.7 Sonnet  \n**Inspection Date:** 2026-10-30  \n**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  \n\n---\n\n## 1. Executive Summary & Scope\nThis project provides an assistive wearable / smartphone platform for visually impaired Vietnamese speakers. By orchestrating on-device camera feeds, hardware volume button triggers, local on-premise speech recognition (Zipformer), and remote multimodal vision intelligence (Gemini 3.8 Flash), it helps users navigate surroundings, identify obstacles, and operate domestic appliances.\n\n## 2. Languages & Technology Stack\n- **Backend:** Python 3.11, FastAPI, Starlette, Uvicorn\n- **Speech Processing:** `sherpa-onnx`, PyAV, ONNX Runtime (CPU)\n- **Vision AI:** Google Gemini 3.8 Flash (`google-genai` / REST Interactions)\n- **Mobile Client:** TypeScript, React Native (0.86), Expo 57, React 19\n- **Native Android Module:** Kotlin (custom Android KeyEvent listener for volume keys)\n\n## 3. Quantitative Metrics & Code Scope\n- **Files:** 138 source and configuration files\n- **Lines of Code:** 25,760 functional lines of code\n- **Languages:** JSON (44.8%), Python (23.0%), TypeScript (14.5%), TSX (6.8%), CSS (2.9%), JavaScript (2.6%), Kotlin (1.3%)\n- **Test Scenarios:** 34 comprehensive test suites across server and mobile app.\n\n## 4. Repository Structure & Architecture\nThe project is organized with clear architectural boundaries:\n- `app/mobile_api.py` and `app/mobile_security.py` enforce strict boundaries for mobile clients.\n- `mobile/src/core/turnController.ts` orchestrates the client interaction cycle with a deterministic finite-state machine.\n- `app/guidance*.py` provides multi-turn guided workflows specifically designed to help blind users locate and operate appliances step-by-step.\n\n## 5. Documentation Assessment\n- **Score:** 9.2 / 10\n- Outstanding architectural documentation in `docs/`: includes detailed data flow diagrams, hardware control specs, and pilot testing checklists.\n- Clear step-by-step setup instructions for both local development and Docker deployment.\n\n## 6. Security & Vulnerability Analysis\n- **Authentication & Privacy:** Token verification is implemented using timing-safe `hmac.compare_digest` with SHA-256 digests. Audio is kept strictly within the local ASR engine, preventing sensitive ambient microphone data from reaching third-party cloud services.\n- **Vulnerabilities Identified:**\n  1. *Unbounded Public Endpoints:* Endpoints outside the `TrialTokens` gate (e.g. `/api/health`) lack IP rate limiting.\n  2. *Single-Node Concurrency Gate:* `WorkGate` is process-local; running multiple workers or containers requires migrating to Redis.\n  3. *Licensing Constraints:* Upstream model weights carry CC BY-NC-ND 4.0 license restrictions.\n\n## 7. Actionable Recommendations\n1. Deploy an API gateway (e.g. Caddy/Nginx) with IP-based rate limiting in front of FastAPI.\n2. Formalize repository licensing by adding an MIT or Apache 2.0 license file.\n3. Migrate session leases and appliance search cache to Redis for multi-instance readiness."
@@ -369,22 +460,23 @@
       "target_commit": "d9ba1e0d42e1241471b1fb58df1efb9d345c6721",
       "review_date": "2026-10-30",
       "scores": {
-        "overall": 8.8,
+        "overall": 8.3,
         "architecture": 9.2,
         "code_quality": 8.9,
         "security": 8.3,
-        "documentation": 9
+        "documentation": 6.8
       },
-      "summary": "An exceptionally well-engineered multimodal assistive system for the visually impaired. Combines an on-device local Zipformer STT engine (preventing microphone audio leaks), Google Gemini 3.8 Flash vision reasoning, and a specialized React Native/Expo client with tactile hardware volume button controls.",
+      "summary": "An exceptionally well-engineered multimodal assistive system for the visually impaired combining an on-device local Zipformer STT engine, Google Gemini 3.8 Flash vision reasoning, and a specialized React Native/Expo client with tactile hardware volume button controls. However, the root onboarding documentation suffers from severe cognitive friction, presenting conflicting desktop WebRTC vs mobile architectures, unexplained version increments, and speculative hardware references.",
       "key_strengths": [
-        "Privacy-first architecture: voice STT executed locally via Zipformer/sherpa-onnx; audio is never uploaded to third-party cloud APIs",
-        "Purpose-built accessibility UX: hardware volume key triggers and audio cue feedback designed specifically for blind users",
+        "Privacy-first architecture: voice STT executed locally via Zipformer/sherpa-onnx; raw audio is never sent to third-party cloud APIs",
+        "Purpose-built accessibility UX: native hardware volume key triggers and audio cue feedback designed specifically for blind users",
         "Rigorous safety controls: SHA-256 token authorization, concurrency work-gates, strict multipart bounds, and unprivileged Docker user"
       ],
       "key_weaknesses": [
+        "Severe root onboarding and architectural disconnect: root README presents a desktop WebRTC demo, contains unresolved notes of author confusion, and highlights speculative LiDAR hardware absent from the operational codebase",
+        "Documentation is fragmented across 15+ Vietnamese markdown files without an overarching English architecture map",
         "Zipformer ASR model weights are licensed under CC BY-NC-ND 4.0, restricting commercial use and derivative fine-tuning",
-        "Stateful in-memory concurrency gate (WorkGate) limits horizontal scalability across multiple container instances",
-        "Missing automated IP-level rate-limiting middleware on public health and WebRTC endpoints"
+        "Stateful in-memory concurrency gate (WorkGate) limits horizontal scalability across multiple container instances"
       ],
       "security_findings": [
         {
@@ -437,9 +529,27 @@
           "recommendation": "Adopt standard open-source license file (MIT or Apache 2.0).",
           "reported_by": "Gemini 3.8 Flash",
           "model_id": "gemini-3-8-flash"
+        },
+        {
+          "id": "SEC-GEMINI-004",
+          "severity": "LOW",
+          "status": "verified",
+          "confidence": 0.96,
+          "category": "documentation_architecture",
+          "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+          "file": "README.md",
+          "line_start": 16,
+          "line_end": 131,
+          "affected_function": "README & onboarding documentation",
+          "description": "The root README instructs users to launch a local desktop WebRTC Chrome demo (app.main:app) while the production mobile API is app.mobile_api:app. It also showcases speculative hardware (VL53L9CX ToF LiDAR) without codebase integration, and contains explicit author confusion notes regarding versions and tokens.",
+          "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+          "impact": "Creates severe cognitive friction, onboarding failure, and uncertainty for reviewers and engineers attempting to operate the system.",
+          "recommendation": "Restructure root README with a unified architectural diagram clearly separating the Android client, the FastAPI Docker container, the local Zipformer STT engine, and the Gemini 3.8 Flash cloud API.",
+          "reported_by": "Gemini 3.8 Flash",
+          "model_id": "gemini-3-8-flash"
         }
       ],
-      "markdown": "# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị\n**Reviewer:** Gemini 3.8 Flash  \n**Inspection Date:** 2026-10-30  \n**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  \n\n---\n\n## 1. Executive Summary & Scope\n**APEC Mắt Kính Cho Người Khiếm Thị** (Smart Glasses for the Visually Impaired) is an advanced assistive technology platform combining mobile computer vision, local edge speech recognition, and generative multimodal AI.\n\nThe application allows visually impaired users to interact with their environment through a wearable or smartphone camera:\n1. **User speaks a query or command** (or presses a physical hardware key on their headset/phone).\n2. **Local Speech Recognition (ASR)** transcribes Vietnamese speech in real-time on the server CPU using Zipformer (`hynt/Zipformer-30M-RNNT-Streaming-6000h`), keeping raw microphone audio entirely private.\n3. **Multimodal Vision Analysis** sends the captured camera frame and transcribed text query to Google Gemini (`gemini-3.8-flash`) with privacy flag `store=false`.\n4. **Interactive Spoken Guidance** directs the user step-by-step through physical tasks (identifying home appliances, remote controls, finding buttons, reading labels).\n\n---\n\n## 2. Languages & Technology Stack\n- **Backend & AI Pipeline:**\n  - **Python 3.11** with FastAPI, Uvicorn, and Starlette\n  - **Sherpa-ONNX & PyAV**: Local CPU streaming speech-to-text (STT) runtime\n  - **Google GenAI SDK**: Multimodal vision analysis powered by `gemini-3.8-flash`\n  - **WebRTC & PyAV**: Real-time peer-to-peer audio/video streaming for desktop development\n  - **SQLite & Alembic**: Lightweight state and guidance migration persistence\n- **Mobile Client (`mobile/`):**\n  - **TypeScript & React Native** (v0.86) on **Expo 57**\n  - **React 19**\n  - **Expo Camera, Expo Audio, Expo Speech, Expo Haptics, Expo SecureStore**\n  - **Native Android Hardware Hooks**: Intercepts volume buttons (`KeyEvent`) to allow non-visual shutter and mic activation\n- **Containerization & Deployment:**\n  - Multi-stage Dockerfile (`python:3.11.16-slim-bookworm`)\n  - EAS Build profile for Android APK generation\n\n---\n\n## 3. Quantitative Metrics & Code Scope\nAccording to the automated repository analyzer:\n- **Total Files Analyzed:** 138 files\n- **Total Lines of Code:** 25,760 lines (27,525 total lines, 1,765 blank)\n- **Directory Hierarchy:** 34 directories\n- **Language Breakdown:**\n  - **JSON & Schemas:** 11,552 lines (44.8%) across 7 files\n  - **Python (Backend & Tests):** 5,915 lines (23.0%) across 39 files\n  - **TypeScript (Mobile & Services):** 3,744 lines (14.5%) across 37 files\n  - **TypeScript React (Components & Screens):** 1,754 lines (6.8%) across 14 files\n  - **CSS / Styles:** 758 lines (2.9%)\n  - **JavaScript:** 672 lines (2.6%) across 4 files\n  - **Markdown (Documentation):** 558 lines (2.2%) across 15 files\n  - **Kotlin (Native Android Hooks):** 345 lines (1.3%) across 4 files\n- **Test Suite Scope:**\n  - **Backend:** 18 pytest suites (~130KB of test code) with extensive mocks for WebRTC, Gemini API errors, rate quotas, and token gates.\n  - **Mobile:** 16 Jest test suites covering native hardware controls, state machines, and turn controllers.\n\n---\n\n## 4. Repository Structure & Architecture\nThe repository displays an exemplary separation of concerns:\n```\nAPEC_mat_kinh_cho_nguoi_khiem_thi/\n├── app/                        # FastAPI Backend Service\n│   ├── asr.py                  # Sherpa-ONNX Zipformer model loader & streaming recognizer\n│   ├── guidance*.py            # Multi-turn spoken guidance engine & appliance search\n│   ├── mobile_api.py           # Hardened mobile endpoints (/api/v2/analyze, /api/v2/transcribe)\n│   ├── mobile_security.py      # TrialTokens authentication and WorkGate admission controller\n│   ├── session.py & webrtc.py  # WebRTC peer connection management\n│   └── vision.py               # Gemini 3.8 Flash multimodal client wrapper\n├── mobile/                     # React Native Expo Mobile App\n│   ├── App.tsx                 # Root application wrapper\n│   ├── src/core/               # State machines (TurnController, DeviceTaskController)\n│   ├── src/hooks/              # Hardware buttons, audio recording, and camera hooks\n│   ├── src/screens/            # High-contrast, accessibility-first screens\n│   └── plugins/                # Android native KeyEvent interceptor for volume keys\n├── docs/                       # Architectural specifications, release notes, hardware guides\n└── tests/                      # Full test coverage for both backend and mobile client\n```\n\n### Architectural Highlights\n- **Turn-based State Machine (`turnController.ts`):** Enforces atomic transitions (`IDLE` → `RECORDING` → `PROCESSING` → `SPEAKING`), preventing overlapping race conditions on slow cellular networks.\n- **Strict Separation of Development vs Production API:**\n  - `app.main:app`: Internal desktop WebRTC playground.\n  - `app.mobile_api:app`: Strictly hardened mobile production API with explicit input boundaries.\n\n---\n\n## 5. Documentation Assessment\n- **Rating:** 9.0 / 10\n- **Depth & Completeness:** The `docs/` directory contains 15 comprehensive guides:\n  - [`MOBILE_ARCHITECTURE.md`](docs/MOBILE_ARCHITECTURE.md): Complete data flow and error code specifications.\n  - [`HARDWARE_CONTROLS_030.md`](docs/HARDWARE_CONTROLS_030.md): Technical breakdown of native Android volume key intercepts.\n  - [`ANDROID_ACCEPTANCE.md`](docs/ANDROID_ACCEPTANCE.md): Testing checklist specifically tailored for blind pilot participants.\n- **Code Comments:** Extensive inline documentation and Vietnamese language localization strings across both client and server.\n\n---\n\n## 6. Security & Vulnerability Analysis\n- **Token Security:** Authentication uses SHA-256 digested tokens validated via `hmac.compare_digest` in `app/mobile_security.py`, preventing timing attacks. Tokens are stored in Android `SecureStore` (backed by Android Keystore / hardware-backed TEE).\n- **Resource Protection:**\n  - `WorkGate` restricts concurrent heavy inference requests to 2 leases, failing closed with HTTP 429 when saturated.\n  - Multipart payloads are bounded by custom stream wrappers (`bounded_form`), enforcing max 4 MiB payload and 1280px image dimensions to guard against memory exhaustion.\n- **Container Isolation:** The Dockerfile creates a non-root system user (`pilot`, UID 10001) and drops root privileges before launching the Uvicorn process.\n- **Areas of Risk:**\n  1. *Public Endpoint Rate Limiting:* `/api/health` and `/api/webrtc/offer` lack IP-based rate limiting. A reverse proxy (e.g. Nginx, Cloudflare) must front the service in production.\n  2. *Model Weight Licensing:* The speech model weights (`hynt/Zipformer-30M-RNNT-Streaming-6000h`) use CC BY-NC-ND 4.0, which prohibits commercial exploitation and derivative works.\n\n---\n\n## 7. Actionable Recommendations & Roadmap\n1. **Add Reverse Proxy / Rate Limiter:** Place Caddy or Nginx with `limit_req` in front of the container to protect health check and audio upload routes from denial-of-service.\n2. **Clarify Project Licensing:** Add an explicit open-source license (e.g. MIT or Apache-2.0) to clarify the rights of contributors and adopters.\n3. **Decouple Admission State for Scaling:** When expanding beyond pilot testing (more than 2 concurrent users), migrate `WorkGate` leases and token state to a shared Redis cluster."
+      "markdown": "# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị\n**Reviewer:** Gemini 3.8 Flash  \n**Inspection Date:** 2026-10-30  \n**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  \n\n---\n\n## 1. Executive Summary & Scope\n**APEC Mắt Kính Cho Người Khiếm Thị** (Smart Glasses for the Visually Impaired) is an advanced assistive technology platform combining a mobile computer vision client, local edge speech recognition, and generative multimodal AI reasoning.\n\nDespite the project name (\"Smart Glasses\"), the actual implementation is an **Android smartphone application** paired with a **Python FastAPI backend**, designed as an accessible prototype for visually impaired individuals.\n\nThe operational flow works as follows:\n1. **User speaks a query or command** (triggered via physical hardware volume keys on their phone or headset).\n2. **Local Speech Recognition (ASR)** transcribes Vietnamese speech in real-time on the server CPU using Zipformer (`hynt/Zipformer-30M-RNNT-Streaming-6000h`), keeping raw microphone audio entirely private.\n3. **Multimodal Vision Analysis** sends a discrete still JPEG snapshot and the transcribed text query to Google Gemini (`gemini-3.8-flash` or `gemini-3.1-flash-lite`) with privacy flag `store=false`.\n4. **Interactive Spoken Guidance** reads the AI response aloud via native Android Text-to-Speech (TTS) and TalkBack, directing the user through physical tasks (identifying home appliances, remote controls, finding buttons, reading labels).\n\n---\n\n## 2. Languages & Technology Stack\n- **Backend & AI Pipeline:**\n  - **Python 3.11** with FastAPI, Uvicorn, and Starlette\n  - **Sherpa-ONNX & PyAV**: Local CPU streaming speech-to-text (STT) runtime\n  - **Google GenAI SDK**: Multimodal vision analysis powered by `gemini-3.8-flash`\n  - **WebRTC & PyAV**: Local peer-to-peer audio/video streaming for desktop development only\n  - **SQLite & PostgreSQL / Redis**: State storage, remote guidance profiles, and migrations\n- **Mobile Client (`mobile/`):**\n  - **TypeScript & React Native** (v0.86) on **Expo 57**\n  - **React 19**\n  - **Expo Camera, Expo Audio, Expo Speech, Expo Haptics, Expo SecureStore**\n  - **Native Android Hardware Hooks**: Custom Kotlin module (`KeyEventModule.kt`) intercepting volume buttons to allow non-visual shutter and mic activation\n- **Containerization & Deployment:**\n  - Multi-stage Dockerfile (`python:3.11.16-slim-bookworm`) with pre-cached model weights\n  - EAS Build profile for Android APK generation\n\n---\n\n## 3. Quantitative Metrics & Code Scope\nAccording to deterministic metrics extracted from the target repository:\n- **Total Files Analyzed:** 138 files\n- **Total Lines of Code:** 25,760 lines (27,525 total lines, 1,765 blank)\n- **Directory Hierarchy:** 34 directories\n- **Language Breakdown:**\n  - **JSON & Schemas:** 11,552 lines (44.8%) across 7 files\n  - **Python (Backend & Tests):** 5,915 lines (23.0%) across 39 files\n  - **TypeScript (Mobile & Services):** 3,744 lines (14.5%) across 37 files\n  - **TypeScript React (Components & Screens):** 1,754 lines (6.8%) across 14 files\n  - **CSS / Styles:** 758 lines (2.9%)\n  - **JavaScript:** 672 lines (2.6%) across 4 files\n  - **Markdown (Documentation):** 558 lines (2.2%) across 15 files\n  - **Kotlin (Native Android Hooks):** 345 lines (1.3%) across 4 files\n- **Test Suite Scope:**\n  - **Backend:** 18 pytest suites (~130KB of test code, 322 passing tests) with extensive mocks for WebRTC, Gemini API errors, rate quotas, and token gates.\n  - **Mobile:** 16 Jest test suites (329 passing unit tests) covering native hardware controls, state machines, and turn controllers.\n\n---\n\n## 4. Architectural Disambiguation & Key Component Breakdown\n\nTo resolve the significant onboarding ambiguity in the repository, this section directly answers the core operational questions:\n\n### 1. Why is there a Docker container?\nThe `Dockerfile` packages the production mobile backend (`app.mobile_api:app`):\n- **Pre-baked STT Model Weights**: In Stage 1, it downloads the ~51 MB Zipformer ONNX model into `/opt/zipformer`.\n- **Production Cloud Deployment**: During local pilot testing, developers ran the server on a MacBook via temporary Cloudflare Quick Tunnels (`trycloudflare.com`). The Docker container exists to deploy the FastAPI backend to permanent cloud infrastructure (Google Cloud Run, AWS ECS, or a VPS) running under an unprivileged user (`pilot`, UID 10001).\n\n### 2. What is the Android app doing?\nLocated in `mobile/`, the app is an assistive \"eyes\" prototype for blind users:\n- Captures environment photos from the rear camera and records Vietnamese voice queries.\n- Submits them via HTTPS multipart (`/api/v2/analyze`) with a Bearer trial token stored in Android `SecureStore`.\n- Converts the returned structured guidance into speech using native Android TTS / TalkBack.\n- Overrides volume buttons so users never need to touch the phone screen.\n\n### 3. What are versions 0.2, 0.3, and 0.4 doing — how are they different?\n- **v0.2.x (0.2.0 / 0.2.1)** — *Voice Context & Multi-turn Q&A*:\n  - Enables asking follow-up questions about the *same captured image* (\"Hỏi thêm về ảnh này\") without re-taking the photo (cached up to 5 minutes, 3 conversational turns).\n  - Voice command confirmation flow (\"Gửi câu hỏi\", \"Nói lại câu hỏi\", \"Hủy câu hỏi\") eliminating typing.\n- **v0.3.0** — *Hardware Volume Button Overrides*:\n  - Native Kotlin interceptor for volume keys: single short press Volume Up starts recording (\"Đang nghe\"), second press snaps and sends; short press Volume Down stops/cancels immediately; long press adjusts volume.\n- **v0.4.0** — *Remote Control Tactile Guidance Assistant*:\n  - Dedicated guidance mode assisting blind users in operating unfamiliar home appliance remotes (TVs, ACs).\n  - Uses an approved database of remote models (`migrations/001_guidance.sql`) to provide physical tactile directions (\"Feel the raised power button at top-left\").\n  - Includes an administrative approval dashboard (`localhost:8081`, `app/guidance_admin.py`).\n\n### 4. What is the video input?\n- **There is no continuous video stream analyzed by AI.**\n- In the desktop demo (`app/main.py`), WebRTC streams video for local browser preview only; pressing \"Chụp ảnh\" captures a single canvas frame.\n- In the Android app, the camera preview assists aiming, but only a **single JPEG frame** (clamped to max 1280px, $\\le 2\\text{ MiB}$) is captured and transmitted per turn.\n\n### 5. Is the video locally analyzed, or a still image sent to Gemini 3.8 Flash?\n- **A still JPEG snapshot is transmitted to Google Gemini 3.8 Flash (or Gemini 3.1 Flash-Lite)** via the Gemini API with `store=false`.\n- Video is NOT analyzed locally. Local processing is strictly limited to camera framing, image resizing, and Zipformer audio transcription.\n\n### 6. What is Zipformer used for — audio input or output?\n- **Strictly Audio INPUT (Speech-to-Text / ASR).**\n- It runs `hynt/Zipformer-30M-RNNT-Streaming-6000h` locally on the server CPU via `sherpa-onnx`. It transcribes user voice queries into Vietnamese text so raw voice audio is never transmitted to Google.\n- Audio **output** (reading answers back) is handled by native Android TTS / TalkBack (`expo-speech`) or browser speech synthesis.\n\n### 7. What should this system run on?\n- **Client**: Any Android smartphone (Android 10+ / API 29+) running the Expo APK.\n- **Server**: A Linux/Docker environment or macOS machine (Python 3.11, CPU with AVX/libgomp, ~2 GB RAM) with an active internet connection to reach Google's Gemini API.\n\n---\n\n## 5. Documentation & Onboarding Assessment\n- **Rating:** 6.8 / 10 (Calibrated from initial 9.0)\n- **The Documentation Paradox**:\n  - *Internal Technical Depth (High)*: The `docs/` folder contains exceptional, highly detailed technical specifications (`MOBILE_ARCHITECTURE.md`, `HARDWARE_CONTROLS_030.md`, `GUIDANCE_040.md`).\n  - *Root \"Front-Door\" Sanity (Poor)*: The root `README.md` creates severe cognitive friction. It leads with a local MacBook WebRTC browser demo (`app.main:app`), fails to explain why Docker exists, concludes with an unintegrated photo of an STMicroelectronics VL53L9CX ToF LiDAR sensor, and contains literal notes of author confusion regarding version numbers and tokens.\n- **Language Barrier**: All core documentation is written exclusively in Vietnamese, with no English architecture overview or visual component topology map.\n\n---\n\n## 6. Security & Vulnerability Analysis\n- **Token Security:** Authentication uses SHA-256 digested tokens validated via `hmac.compare_digest` in `app/mobile_security.py`, preventing timing attacks. Tokens are stored in Android `SecureStore` (backed by Android Keystore / hardware-backed TEE).\n- **Resource Protection:**\n  - `WorkGate` restricts concurrent heavy inference requests to 2 leases, failing closed with HTTP 429 when saturated.\n  - Multipart payloads are bounded by custom stream wrappers (`bounded_form`), enforcing max 4 MiB payload and 1280px image dimensions to guard against memory exhaustion.\n- **Container Isolation:** The Dockerfile creates a non-root system user (`pilot`, UID 10001) and drops root privileges before launching the Uvicorn process.\n- **Areas of Risk:**\n  1. *Public Endpoint Rate Limiting:* `/api/health` and `/api/webrtc/offer` lack IP-based rate limiting. A reverse proxy (e.g. Nginx, Cloudflare) must front the service in production.\n  2. *Model Weight Licensing:* The speech model weights (`hynt/Zipformer-30M-RNNT-Streaming-6000h`) use CC BY-NC-ND 4.0, which prohibits commercial exploitation and derivative works.\n\n---\n\n## 7. Actionable Recommendations & Roadmap\n1. **Restructure Root README (Immediate)**: Replace the confusing desktop WebRTC guide with a clear client-server architecture diagram highlighting the Android app (`mobile/`) and FastAPI Docker backend (`app.mobile_api:app`).\n2. **Add Reverse Proxy / Rate Limiter (Immediate)**: Place Caddy or Nginx with `limit_req` in front of the container to protect health check and audio upload routes from denial-of-service.\n3. **Clarify Project Licensing (Short Term)**: Add an explicit open-source license (e.g. MIT or Apache-2.0) to clarify the rights of contributors and adopters.\n4. **Decouple Admission State for Scaling (Medium Term)**: When expanding beyond pilot testing (more than 2 concurrent users), migrate `WorkGate` leases and token state to a shared Redis cluster."
     },
     {
       "id": "gpt-4o",
@@ -449,19 +559,20 @@
       "target_commit": "d9ba1e0d42e1241471b1fb58df1efb9d345c6721",
       "review_date": "2026-10-30",
       "scores": {
-        "overall": 8.6,
+        "overall": 8.2,
         "architecture": 9,
         "code_quality": 8.8,
         "security": 8.2,
-        "documentation": 8.9
+        "documentation": 6.9
       },
-      "summary": "High-impact accessibility application built with thoughtful attention to real-world edge cases. Combines offline local speech recognition with Gemini 3.8 Flash multimodal scene interpretation and an Expo-based Android client with tactile hardware overrides.",
+      "summary": "High-impact accessibility application built with thoughtful attention to real-world edge cases. Combines offline local speech recognition with Gemini 3.8 Flash multimodal scene interpretation and an Expo-based Android client with tactile hardware overrides. Root onboarding documentation however presents significant confusion between desktop WebRTC prototypes and mobile production.",
       "key_strengths": [
         "Local CPU-based Vietnamese speech recognition protects user microphone privacy",
         "Hardware volume button hooks solve key non-visual interaction challenges for blind users",
         "Defensive API design with bounded multipart streams and constant-time token verification"
       ],
       "key_weaknesses": [
+        "Root onboarding confusion: contradictory entry points, unresolved notes of author uncertainty, and speculative sensor hardware",
         "In-memory WorkGate state restricts deployment to a single process/container",
         "Non-commercial license on speech recognition model weights limits commercialization",
         "Missing automated vulnerability auditing (e.g. pip-audit, npm audit) in GitHub Actions"
@@ -515,6 +626,24 @@
           "evidence": "No LICENSE or COPYING file present in root of target repository.",
           "impact": "",
           "recommendation": "Provide standard open-source license.",
+          "reported_by": "GPT-4o",
+          "model_id": "gpt-4o"
+        },
+        {
+          "id": "SEC-GPT4O-004",
+          "severity": "LOW",
+          "status": "verified",
+          "confidence": 0.94,
+          "category": "documentation_architecture",
+          "title": "Root README Architectural Disconnect and Conflicting Entry Points",
+          "file": "README.md",
+          "line_start": 16,
+          "line_end": 131,
+          "affected_function": "README",
+          "description": "Root README prioritizes an internal desktop WebRTC demo over the production mobile client and contains unresolved author notes regarding version functionality.",
+          "evidence": "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'",
+          "impact": "",
+          "recommendation": "Restructure root README to clearly document the Android client, the FastAPI Docker container, and the milestone progression.",
           "reported_by": "GPT-4o",
           "model_id": "gpt-4o"
         }
