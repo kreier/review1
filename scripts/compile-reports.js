@@ -83,6 +83,11 @@ export function validateReport(metadata, filename) {
 
   if (!metadata.target_repo) {
     warnings.push(`Missing 'target_repo'`);
+  } else {
+    const norm = String(metadata.target_repo).toLowerCase();
+    if (norm === 'review1' || norm === 'kreier/review1' || norm.includes('kreier/review1')) {
+      errors.push(`Target '${metadata.target_repo}' is the review harness itself! Reports must evaluate the external codebase in 'target/'. See AGENTS.md.`);
+    }
   }
 
   // Validate scores
@@ -354,6 +359,25 @@ export function compileReports() {
   if (isStrict && totalErrors > 0) {
     console.error(`Aborting compilation: ${totalErrors} validation error(s) in strict mode.`);
     process.exit(1);
+  }
+
+  // Enforce framework boundary: reports must review target/, never review1 itself
+  for (const r of reports) {
+    const normTarget = (r.target_repo || '').toLowerCase();
+    if (normTarget.includes('review1') || normTarget === 'kreier/review1') {
+      const boundaryError = `Report '${r.filename}' reviews 'review1' itself instead of the codebase in 'target/'. review1 is the review framework, not the review subject!`;
+      console.error(`❌ [Boundary Error] ${boundaryError}`);
+      if (isStrict) {
+        process.exit(1);
+      }
+    }
+  }
+
+  // Validate consistency of target_repo across reports
+  const targetRepoNames = new Set(reports.map(r => r.target_repo).filter(Boolean));
+  if (targetRepoNames.size > 1) {
+    const mismatchWarning = `Target repository mismatch detected across reports: ${Array.from(targetRepoNames).join(', ')}. All reports must review the same codebase in 'target/'.`;
+    console.warn(`⚠️  [Consensus Warning] ${mismatchWarning}`);
   }
 
   // Compute Consensus and Averages without treating missing scores as zero

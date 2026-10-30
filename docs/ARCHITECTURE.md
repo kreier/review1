@@ -108,16 +108,17 @@ flowchart TD
         METRICS["target-metrics.json"]
     end
 
-    subgraph Models["AI Models (Intelligence)"]
-        CHATGPT["ChatGPT"]
+    subgraph Models["AI Models & Autonomous Reviewers (Intelligence)"]
         GEMINI["Gemini 3.8 Flash"]
+        OPENCODE["OpenCode"]
+        QODER["Qoder"]
         OTHER["Claude / DeepSeek / Other Models"]
     end
 
     subgraph RawReports["reports/*.md"]
-        REP1["reports/chatgpt.md"]
-        REP2["reports/gemini-3-8-flash.md"]
-        REP3["reports/archive/ (Historical Targets)"]
+        REP1["reports/gemini-3-8-flash.md"]
+        REP2["reports/opencode.md"]
+        REP3["reports/qoder.md"]
     end
 
     subgraph Compiler["scripts/compile-reports.js"]

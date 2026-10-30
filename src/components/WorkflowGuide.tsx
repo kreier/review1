@@ -108,7 +108,7 @@ npm run dev`;
               <span>Prompt AI Models</span>
             </div>
             <p className="text-xs text-slate-400">
-              Feed the codebase and instructions to different models (Claude, Gemini, GPT-4o, DeepSeek, etc.) using the standardized prompt template located in <code className="text-cyan-300">prompts/REVIEW_PROMPT.md</code>.
+              Feed the target codebase and instructions to different models and autonomous agents (OpenCode, Qoder, Gemini, Claude, DeepSeek, etc.) using the standardized prompt templates in <code className="text-cyan-300">prompts/REVIEW_PROMPT.md</code>, <code className="text-cyan-300">prompts/opencode.md</code>, or <code className="text-cyan-300">prompts/qoder.md</code>.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ npm run dev`;
               <span>Save Reports into reports/</span>
             </div>
             <p className="text-xs text-slate-400">
-              Save each model's markdown report into the <code className="text-cyan-300">reports/</code> folder (e.g. <code className="text-slate-300 font-mono">reports/chatgpt.md</code>, <code className="text-slate-300 font-mono">reports/gemini-3-8-flash.md</code>).
+              Save each model's markdown report into the <code className="text-cyan-300">reports/</code> folder (e.g. <code className="text-slate-300 font-mono">reports/opencode.md</code>, <code className="text-slate-300 font-mono">reports/qoder.md</code>, <code className="text-slate-300 font-mono">reports/gemini-3-8-flash.md</code>). See <code className="text-cyan-300">AGENTS.md</code> for agent rules.
             </p>
           </div>
 

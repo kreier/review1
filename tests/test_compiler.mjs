@@ -122,4 +122,16 @@ test('validateReport validates schema rules', () => {
   assert.equal(badRes.isValid, false);
   assert.ok(badRes.errors.some(e => e.includes('overall')));
   assert.ok(badRes.errors.some(e => e.includes('model')));
+
+  // Boundary check: attempting to review review1 itself must be rejected
+  const selfReviewReport = {
+    model: 'TestModel',
+    model_id: 'test-model',
+    target_repo: 'kreier/review1', // Invalid!
+    review_date: '2026-10-30',
+    scores: { overall: 8.0 }
+  };
+  const selfReviewRes = validateReport(selfReviewReport, 'self.md');
+  assert.equal(selfReviewRes.isValid, false);
+  assert.ok(selfReviewRes.errors.some(e => e.includes('review harness itself')));
 });

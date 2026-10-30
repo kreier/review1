@@ -36,7 +36,8 @@ The framework decouples deterministic code ground truth from AI qualitative reas
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-Detailed architectural documentation:
+Detailed architectural documentation & agent rules:
+- 🤖 [**AI Agent Operating Instructions & Guardrails (`AGENTS.md`)**](./AGENTS.md)
 - 📖 [**Architecture & Data Flow (`docs/ARCHITECTURE.md`)**](./docs/ARCHITECTURE.md)
 - 📋 [**15 Investigation Dimensions (`docs/INVESTIGATION_SCOPE.md`)**](./docs/INVESTIGATION_SCOPE.md)
 - 📑 [**Standardized Report Schema & Evidence Rubrics (`docs/REPORT_SCHEMA.md`)**](./docs/REPORT_SCHEMA.md)
@@ -87,53 +88,72 @@ This generates:
 
 ---
 
-### Step 3: Prompt AI Models
+### Step 3: Prompt AI Models & Autonomous Agents
 
-Use the master prompt or specialized prompts:
+Use the master prompt or specialized prompts to evaluate the code in `target/`:
 - 🌟 Master Prompt: [`prompts/REVIEW_PROMPT.md`](./prompts/REVIEW_PROMPT.md)
+- 🤖 OpenCode Review Guide: [`prompts/opencode.md`](./prompts/opencode.md)
+- ⚡ Qoder Review Guide: [`prompts/qoder.md`](./prompts/qoder.md)
 - 🏛️ Architecture & Modularity: [`prompts/architecture.md`](./prompts/architecture.md)
 - 🛡️ Security & Supply Chain: [`prompts/security.md`](./prompts/security.md)
 - 🧪 Code Quality & Testing: [`prompts/code-quality.md`](./prompts/code-quality.md)
 - 📖 Onboarding & Documentation Reality: [`prompts/documentation.md`](./prompts/documentation.md)
 
-Feed your target codebase context to different frontier AI models:
-- **ChatGPT** (OpenAI)
+Feed your target codebase context to different frontier AI models and autonomous tools:
+- **OpenCode** (Autonomous agent / CLI code review)
+- **Qoder** (Agentic repository auditor)
 - **Gemini 3.8 Flash** (Google)
 - **Claude 3.7 Sonnet** (Anthropic)
 - **DeepSeek R1 / Llama 3 / Ollama** (Open weights / local)
+
+> ⚠️ **Critical Rule**: AI models must review the code in `target/`, NOT `review1` itself. See [`AGENTS.md`](./AGENTS.md) for strict boundaries.
 
 ---
 
 ### Step 4: Save Model Reports into `reports/`
 
 Save each AI model's response as a `.md` file in `reports/`:
-- `reports/chatgpt.md` (e.g. independently run ChatGPT review)
-- `reports/gemini-3-8-flash.md` (e.g. Gemini 3.8 Flash review)
+- `reports/gemini-3-8-flash.md` (Gemini review of `target/`)
+- `reports/opencode.md` (OpenCode review of `target/`)
+- `reports/qoder.md` (Qoder review of `target/`)
 
-> **Integrity & Real Reviews Guarantee**: Only verified, authentically executed model reviews are stored in `reports/`. Never commit simulated or hallucinated model outputs. Historical single-target reviews (e.g., APEC smart glasses evaluated by Gemini 3.8 Flash) are archived under `reports/archive/`.
+> **Integrity & Real Reviews Guarantee**: Only verified, authentically executed model reviews are stored in `reports/`. Never commit simulated or hallucinated model outputs.
 
 #### Report Frontmatter Format
 ```yaml
 ---
-model: "ChatGPT"
-model_id: "chatgpt"
-target_repo: "kreier/review1"
-target_commit: "8ea40b9b49db42532c01adda2c5c949a5bbae6e8"
+model: "OpenCode"
+model_id: "opencode"
+target_repo: "APEC Mắt Kính Cho Người Khiếm Thị"
+target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
 review_date: "2026-10-30"
 scores:
-  overall: 7.8
-  architecture: 8.5
-  code_quality: 7.5
-  security: 7.0
-  documentation: 8.2
-summary: "A recognizable architecture, a defined investigation methodology..."
+  overall: 8.5
+  architecture: 9.0
+  code_quality: 8.7
+  security: 8.2
+  documentation: 7.5
+summary: "An exemplary assistive engineering project..."
 key_strengths:
-  - "Clear separation of target code and review framework"
+  - "Rigorous state machine modeling in mobile client"
+  - "Local edge speech recognition protects microphone privacy"
 key_weaknesses:
-  - "Dual source of truth between validator and report schema"
+  - "In-memory admission control prevents horizontal scaling"
 security_findings:
   - id: "SEC-001"
     severity: "HIGH" # CRITICAL | HIGH | MEDIUM | LOW
+    status: "verified"  # verified | probable | unverified
+    confidence: 0.95
+    category: "availability"
+    title: "Absence of IP Rate Limiting on Public Health and WebRTC Routes"
+    file: "app/main.py"
+    line_start: 35
+    line_end: 78
+    description: "Public health check and WebRTC negotiation endpoints are unthrottled..."
+    evidence: "FastAPI route definitions do not apply rate limiting middleware."
+    recommendation: "Deploy a reverse proxy (e.g. Caddy) or attach slowapi middleware."
+---
+```
     status: "verified"  # verified | probable | unverified
     confidence: 0.95
     category: "availability"

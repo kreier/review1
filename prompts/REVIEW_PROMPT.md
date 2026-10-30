@@ -1,6 +1,6 @@
 # AI Repository Review Master Prompt
 
-Use this standardized prompt when asking an AI model (e.g., Claude 3.7 Sonnet, Gemini 3.8 Flash, GPT-4o, DeepSeek-R1) to inspect the repository inside the `target/` folder.
+Use this standardized prompt when asking an AI model (e.g., OpenCode, Qoder, Gemini 3.8 Flash, Claude 3.7 Sonnet, DeepSeek-R1) to inspect the repository inside the `target/` folder.
 
 ---
 
@@ -46,8 +46,8 @@ Your report must explicitly address and disambiguate:
 You MUST start your response with a YAML frontmatter block enclosed in `---`, followed by your detailed Markdown report.
 
 ---
-model: "<Exact Model Name, e.g. Gemini 3.8 Flash / Claude 3.7 Sonnet / GPT-4o>"
-model_id: "<kebab-case-id, e.g. gemini-3-8-flash, claude-3-7-sonnet, gpt-4o, deepseek-r1>"
+model: "<Exact Model Name, e.g. OpenCode / Qoder / Gemini 3.8 Flash / Claude 3.7 Sonnet>"
+model_id: "<kebab-case-id, e.g. opencode, qoder, gemini-3-8-flash, claude-3-7-sonnet>"
 target_repo: "<Repository Name>"
 target_commit: "<Target Git Commit SHA from target-metrics.json if available>"
 review_date: "<YYYY-MM-DD>"
