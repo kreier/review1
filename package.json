@@ -1,0 +1,35 @@
+{
+  "name": "review1",
+  "version": "1.0.0",
+  "description": "Framework to have AI review and analyze repositories and publish a report.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/compile-reports.js && vite",
+    "build": "node scripts/compile-reports.js && vite build",
+    "preview": "vite preview",
+    "analyze": "python3 scripts/analyze-target.py",
+    "compile-reports": "node scripts/compile-reports.js"
+  },
+  "bugs": {
+    "url": "https://github.com/kreier/review1/issues"
+  },
+  "homepage": "https://github.com/kreier/review1#readme",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.2",
+    "lucide-react": "^1.64.0",
+    "marked": "^18.1.2",
+    "postcss": "^8.5.32",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "yaml": "^2.9.1"
+  }
+}

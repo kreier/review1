@@ -147,3 +147,12 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Target repository cloned for review
+/target/*
+!/target/.gitkeep
+!/target/README.md
+
+# Temporary analysis output
+target-metrics.json
+
