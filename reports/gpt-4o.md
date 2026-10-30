@@ -1,78 +1,79 @@
 ---
 model: "GPT-4o"
 model_id: "gpt-4o"
-target_repo: "FastAPI Distributed Microservice"
+target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
 review_date: "2026-10-30"
 scores:
-  overall: 8.0
-  architecture: 8.3
-  code_quality: 8.1
-  security: 6.9
-  documentation: 8.5
-summary: "Solid, battle-tested Python application architecture with commendable documentation and consistent coding conventions. Security review identifies critical improvements needed in token verification, CORS staging policies, and database connection timeout fallbacks."
+  overall: 8.6
+  architecture: 9.0
+  code_quality: 8.8
+  security: 8.2
+  documentation: 8.9
+summary: "High-impact accessibility application built with thoughtful attention to real-world edge cases. Combines offline local speech recognition with Gemini 3.8 Flash multimodal scene interpretation and an Expo-based Android client with tactile hardware overrides."
 key_strengths:
-  - "Consistent code formatting and linting rules enforced with Ruff"
-  - "Well-designed database migration tracking via Alembic"
-  - "Clear onboarding guide with automated one-command docker environment"
+  - "Local CPU-based Vietnamese speech recognition protects user microphone privacy"
+  - "Hardware volume button hooks solve key non-visual interaction challenges for blind users"
+  - "Defensive API design with bounded multipart streams and constant-time token verification"
 key_weaknesses:
-  - "Lacks defense-in-depth against JWT header tampering in auth module"
-  - "Permissive CORS settings in non-production configurations"
-  - "No automated dependency vulnerability scanning in CI workflow"
+  - "In-memory WorkGate state restricts deployment to a single process/container"
+  - "Non-commercial license on speech recognition model weights limits commercialization"
+  - "Missing automated vulnerability auditing (e.g. pip-audit, npm audit) in GitHub Actions"
 security_findings:
-  - severity: "HIGH"
-    title: "Algorithm Confusion Flaw in JWT Authentication"
-    file: "src/auth/tokens.py"
-    description: "JWT verification does not enforce an immutable cryptographic algorithm, enabling token forgery."
-  - severity: "HIGH"
-    title: "Missing Automated Security Scanning in CI"
-    file: ".github/workflows/ci.yml"
-    description: "CI pipeline executes tests and formatting but does not execute pip-audit or bandit for static vulnerability scanning."
   - severity: "MEDIUM"
-    title: "Unbounded Query Pagination in List Endpoints"
-    file: "src/api/v1/users.py"
-    description: "GET /users accepts high limit parameter values without a strict maximum ceiling, enabling memory denial-of-service."
+    title: "Denial of Service Risk on Unauthenticated Routes"
+    file: "app/main.py"
+    description: "WebRTC and health check routes do not enforce rate limiting or connection limits."
+  - severity: "LOW"
+    title: "Ephemeral State Storage in Local SQLite"
+    file: "app/guidance_storage.py"
+    description: "Guidance sessions and feedback records stored in local SQLite without automated backups."
+  - severity: "LOW"
+    title: "Missing Formal License File"
+    file: "LICENSE"
+    description: "Root repository lacks a clear license declaration, creating legal ambiguity."
 ---
 
-# Technical Review Report: FastAPI Distributed Microservice
+# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị
 **Reviewer:** GPT-4o  
 **Inspection Date:** 2026-10-30  
+**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  
 
 ---
 
 ## 1. Executive Summary & Scope
-This project serves as a scalable web service boilerplate and API backend built with FastAPI. It features domain event publishing, PostgreSQL integration, and asynchronous task management. The architecture follows modern Python best practices.
+This codebase delivers an AI-powered smart glass / smartphone assistant for blind individuals. It captures photos via the rear camera upon receiving a spoken prompt or physical button click, interprets the scene using Gemini 3.8 Flash, and reads the guidance aloud in natural Vietnamese.
 
 ## 2. Languages & Technology Stack
-- **Language:** Python (3.11)
-- **Frameworks:** FastAPI, Pydantic, SQLAlchemy 2, Alembic
-- **Infrastructure:** Docker, Docker Compose, PostgreSQL 15, RabbitMQ 3.12
-- **CI/CD:** GitHub Actions (linting, testing, docker build)
+- **Primary Languages:** Python 3.11 (backend), TypeScript (mobile client), Kotlin (Android plugins)
+- **Frameworks:** FastAPI, React Native 0.86, Expo 57, React 19
+- **Inference Engines:** Sherpa-ONNX (Zipformer ASR), Google Gemini 3.8 Flash (Multimodal Vision)
+- **Testing:** Pytest, Jest
 
 ## 3. Quantitative Metrics & Code Scope
-- **File Count:** 50 Python files, 8 YAML workflows/configs.
-- **Lines of Code:** ~5,000 lines.
-- **Architectural Scope:** Medium-size backend microservice.
-- **Code Organization:** Clean layering between HTTP transport, domain logic, and persistence.
+- **File Count:** 138 files
+- **Total Code Lines:** ~25,760 lines
+- **Code Distribution:** Heavy emphasis on robust schemas, test coverage, and modular domain logic.
+- **Test Scenarios:** 34 test suites covering both unit and integration tests.
 
 ## 4. Repository Structure & Architecture
-The repository structure is logical and intuitive:
-- `src/api/`: Routing, request/response models, middleware.
-- `src/domain/`: Pure business models and domain logic.
-- `src/services/`: Application orchestration.
-- `src/repositories/`: SQLAlchemy repository implementations.
-- `tests/`: Organized into `unit/` and `integration/`.
+The repository architecture is cleanly compartmentalized:
+- `app/`: Houses backend services with distinct entry points for local WebRTC testing (`main.py`) vs hardened mobile endpoints (`mobile_api.py`).
+- `mobile/`: Complete Expo React Native application featuring hardware button event listeners.
+- `docs/`: In-depth documentation describing hardware setups, API specs, and pilot testing procedures.
 
 ## 5. Documentation Assessment
-- **README:** Clear, well-structured, covers installation, environment setup, and test execution.
-- **Documentation Gaps:** Missing an architectural decision record (ADR) directory to track why specific architectural choices were made.
-- **Code Comments:** Code is generally self-documenting with descriptive naming, but complex event queue edge cases lack contextual rationale.
+- **Score:** 8.9 / 10
+- Clear setup guides, testing checklists, and hardware integration diagrams.
+- Missing an architecture decision record (ADR) detailing why specific model weights were selected.
 
 ## 6. Security & Vulnerability Analysis
-1. **Critical JWT Issue:** Like other auditors detected, `src/auth/tokens.py` lacks algorithm enforcement.
-2. **Denial of Service via Pagination:** The pagination limit parameter on `GET /users` can be set arbitrarily high by a client, which could cause out-of-memory crashes on large tables.
-3. **Missing Automated Audits:** The GitHub Actions pipeline should include `pip-audit` or `safety` alongside `bandit` to block vulnerabilities prior to merge.
+1. **Privacy Preservation:** Microphone audio is never sent off the machine; only the final transcribed text and captured photo are transmitted to Gemini.
+2. **Access Control:** Tokens are validated using SHA-256 digests and `hmac.compare_digest`.
+3. **Identified Risks:**
+   - Unthrottled endpoints outside the token gate could be exploited for connection exhaustion.
+   - Restrictive model licensing (CC BY-NC-ND 4.0) restricts commercial redistribution.
 
 ## 7. Actionable Recommendations
-1. Enforce `algorithms=["RS256"]` in the JWT decode logic immediately.
-2. Cap pagination parameters with `Query(default=20, le=100)`.
-3. Add `pip-audit` and `bandit` steps into the GitHub Actions workflow.
+1. Enforce IP-based rate limiting via reverse proxy (Nginx / Cloudflare).
+2. Add a standard open-source license file (`LICENSE`).
+3. Externalize session state to Redis for horizontal scalability.

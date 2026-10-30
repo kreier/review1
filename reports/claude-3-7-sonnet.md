@@ -1,78 +1,80 @@
 ---
 model: "Claude 3.7 Sonnet"
 model_id: "claude-3-7-sonnet"
-target_repo: "FastAPI Distributed Microservice"
+target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
 review_date: "2026-10-30"
 scores:
-  overall: 8.5
-  architecture: 8.8
-  code_quality: 8.6
-  security: 7.5
-  documentation: 9.0
-summary: "An elegantly engineered microservice with rigorous separation of concerns, strong type annotations, and clean async patterns. Key concerns involve token validation leeway, lack of distributed tracing headers, and missing database connection pool exhaustion safeguards."
+  overall: 8.9
+  architecture: 9.3
+  code_quality: 9.1
+  security: 8.4
+  documentation: 9.2
+summary: "An exemplary assistive engineering project featuring a clean separation between high-level multimodal reasoning (Gemini 3.8 Flash) and zero-leakage local voice processing (Zipformer ONNX). Outstanding testing culture across both Python backend and React Native mobile client."
 key_strengths:
-  - "Sophisticated async architecture with robust error boundaries"
-  - "100% type annotation coverage enforced via strict mypy configuration"
-  - "Exemplary testing strategy combining unit tests and testcontainers for Postgres"
+  - "Rigorous state machine modeling in mobile turnController ensuring single-inflight operation"
+  - "Native Android volume key interception for blind user accessibility without screen interaction"
+  - "Strong privacy architecture: raw voice audio is processed locally on CPU and never leaves the server"
 key_weaknesses:
-  - "Cryptographic token verification lacks algorithm pinning in src/auth/tokens.py"
-  - "Potential database pool exhaustion under connection spikes without fallback retry limits"
-  - "Absence of structured OpenTelemetry tracing propagation across event queues"
+  - "In-memory WorkGate admission control prevents horizontal scaling across multiple container instances"
+  - "Zipformer ASR model weights restricted by CC BY-NC-ND 4.0 license"
+  - "Absence of automated static analysis security scanning (e.g., Bandit or Snyk) in CI pipeline"
 security_findings:
-  - severity: "HIGH"
-    title: "Unpinned Cryptographic Algorithm in JWT Signature Verification"
-    file: "src/auth/tokens.py"
-    description: "Decoding routine trusts algorithm header without pinning to RS256, leaving the API vulnerable to token spoofing."
   - severity: "MEDIUM"
-    title: "Missing Rate Limiter on Authentication & Password Recovery Endpoints"
-    file: "src/api/v1/auth.py"
-    description: "Login and password reset endpoints have no throttling mechanisms, susceptible to distributed credential stuffing."
+    title: "Absence of IP Rate Limiting on Public Health and WebRTC Routes"
+    file: "app/main.py"
+    description: "Public health check and WebRTC negotiation endpoints are unthrottled, allowing low-effort socket exhaustion attacks."
   - severity: "LOW"
-    title: "Verbose Exception Backtraces Leaked in 500 Responses"
-    file: "src/api/middleware/error_handler.py"
-    description: "Internal exceptions serialize traceback strings into JSON payload when debug mode flag is toggled on."
+    title: "Potential Data Loss on Container Restarts for Guidance Storage"
+    file: "app/guidance_storage.py"
+    description: "Multi-turn guidance histories stored in local SQLite without external persistence or replication."
+  - severity: "LOW"
+    title: "Unlicensed Source Code Risk"
+    file: "README.md"
+    description: "Repository lacks a defined software license, posing IP and redistribution ambiguities."
 ---
 
-# Technical Review Report: FastAPI Distributed Microservice
+# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị
 **Reviewer:** Claude 3.7 Sonnet  
 **Inspection Date:** 2026-10-30  
+**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  
 
 ---
 
 ## 1. Executive Summary & Scope
-The codebase is a modern asynchronous Python backend service utilizing FastAPI. It demonstrates enterprise-grade code cleanliness, relying on dependency injection and asynchronous database sessions. The project scope encompasses core domain entities, transactional persistence, background event dispatching, and REST endpoints.
+This project provides an assistive wearable / smartphone platform for visually impaired Vietnamese speakers. By orchestrating on-device camera feeds, hardware volume button triggers, local on-premise speech recognition (Zipformer), and remote multimodal vision intelligence (Gemini 3.8 Flash), it helps users navigate surroundings, identify obstacles, and operate domestic appliances.
 
 ## 2. Languages & Technology Stack
-- **Language:** Python 3.11 with strict typing (`mypy --strict`)
-- **Frameworks:** FastAPI, SQLAlchemy 2 (asyncpg), Alembic for schema migrations
-- **Message Broker Client:** aio-pika for RabbitMQ AMQP messaging
-- **Tooling:** Ruff (linter/formatter), Poetry, Docker, GitHub Actions CI
+- **Backend:** Python 3.11, FastAPI, Starlette, Uvicorn
+- **Speech Processing:** `sherpa-onnx`, PyAV, ONNX Runtime (CPU)
+- **Vision AI:** Google Gemini 3.8 Flash (`google-genai` / REST Interactions)
+- **Mobile Client:** TypeScript, React Native (0.86), Expo 57, React 19
+- **Native Android Module:** Kotlin (custom Android KeyEvent listener for volume keys)
 
 ## 3. Quantitative Metrics & Code Scope
-- **Total Source Files:** 52 files (excluding tests)
-- **Lines of Code:** ~5,120 LoC (Python: 4,450, YAML/Config: 670)
-- **Modularity Score:** High. Modules average less than 150 lines per file, indicating disciplined file scoping.
-- **Test Coverage:** Comprehensive integration tests utilizing `testcontainers-python` for ephemeral PostgreSQL containers.
+- **Files:** 138 source and configuration files
+- **Lines of Code:** 25,760 functional lines of code
+- **Languages:** JSON (44.8%), Python (23.0%), TypeScript (14.5%), TSX (6.8%), CSS (2.9%), JavaScript (2.6%), Kotlin (1.3%)
+- **Test Scenarios:** 34 comprehensive test suites across server and mobile app.
 
 ## 4. Repository Structure & Architecture
-The directory hierarchy demonstrates textbook Ports and Adapters (Hexagonal) organization:
-- `domain/`: Pure business entities with zero third-party dependencies.
-- `services/`: Use cases coordinating entity state transitions.
-- `repositories/`: Persistence boundary utilizing SQLAlchemy AsyncSession with repository pattern.
-- `api/`: Transport layer mapping HTTP requests to service commands.
+The project is organized with clear architectural boundaries:
+- `app/mobile_api.py` and `app/mobile_security.py` enforce strict boundaries for mobile clients.
+- `mobile/src/core/turnController.ts` orchestrates the client interaction cycle with a deterministic finite-state machine.
+- `app/guidance*.py` provides multi-turn guided workflows specifically designed to help blind users locate and operate appliances step-by-step.
 
 ## 5. Documentation Assessment
-- **Score:** 9.0 / 10
-- Detailed `README.md` including prerequisite setup with Docker Compose, local migration workflows, and testing guides.
-- Well-maintained `CHANGELOG.md` following Keep a Changelog conventions.
-- Complete OpenAPI schema definitions with rich response examples and request body definitions.
+- **Score:** 9.2 / 10
+- Outstanding architectural documentation in `docs/`: includes detailed data flow diagrams, hardware control specs, and pilot testing checklists.
+- Clear step-by-step setup instructions for both local development and Docker deployment.
 
 ## 6. Security & Vulnerability Analysis
-1. **JWT Header Spoofing (High):** As also flagged in security audits, `src/auth/tokens.py` allows dynamic algorithm extraction from JWT headers. An attacker could issue tokens signed with HMAC using the server's public key or a `none` algorithm.
-2. **Credential Stuffing (Medium):** The authentication routes lack request frequency throttling. Implementing IP and username token buckets with Redis is strongly advised.
-3. **Debug Error Exposure (Low):** `error_handler.py` outputs traceback details when `DEBUG=True`, which could inadvertently leak internal path structures in non-production environments.
+- **Authentication & Privacy:** Token verification is implemented using timing-safe `hmac.compare_digest` with SHA-256 digests. Audio is kept strictly within the local ASR engine, preventing sensitive ambient microphone data from reaching third-party cloud services.
+- **Vulnerabilities Identified:**
+  1. *Unbounded Public Endpoints:* Endpoints outside the `TrialTokens` gate (e.g. `/api/health`) lack IP rate limiting.
+  2. *Single-Node Concurrency Gate:* `WorkGate` is process-local; running multiple workers or containers requires migrating to Redis.
+  3. *Licensing Constraints:* Upstream model weights carry CC BY-NC-ND 4.0 license restrictions.
 
 ## 7. Actionable Recommendations
-1. Explicitly parameterize `jwt.decode(..., algorithms=["RS256"])` to reject all other algorithms.
-2. Introduce a rate-limiting middleware (e.g. `slowapi` or Redis-based sliding window).
-3. Integrate OpenTelemetry trace context headers across message broker payloads.
+1. Deploy an API gateway (e.g. Caddy/Nginx) with IP-based rate limiting in front of FastAPI.
+2. Formalize repository licensing by adding an MIT or Apache 2.0 license file.
+3. Migrate session leases and appliance search cache to Redis for multi-instance readiness.
