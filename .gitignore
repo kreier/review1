@@ -153,6 +153,7 @@ vite.config.ts.timestamp-*
 !/target/.gitkeep
 !/target/README.md
 
-# Temporary analysis output
-target-metrics.json
+# Temporary root analysis output
+/target-metrics.json
+!src/data/target-metrics.json
 

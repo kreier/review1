@@ -8,7 +8,6 @@ import {
   FileText, 
   Settings, 
   ShieldAlert, 
-  Terminal, 
   Code
 } from 'lucide-react';
 

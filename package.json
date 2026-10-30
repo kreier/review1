@@ -1,12 +1,14 @@
 {
   "name": "review1",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "description": "Framework to have AI review and analyze repositories and publish a report.",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "node scripts/compile-reports.js && vite",
-    "build": "node scripts/compile-reports.js && vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && node scripts/compile-reports.js && vite build",
     "preview": "vite preview",
     "analyze": "python3 scripts/analyze-target.py",
     "compile-reports": "node scripts/compile-reports.js"

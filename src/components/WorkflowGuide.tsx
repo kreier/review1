@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, Terminal, Bot, FileText, Globe } from 'lucide-react';
+import { X, Copy, Check, Bot } from 'lucide-react';
 
 interface WorkflowGuideProps {
   isOpen: boolean;

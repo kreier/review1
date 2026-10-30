@@ -11,7 +11,7 @@ import {
   TrendingUp,
   Cpu
 } from 'lucide-react';
-import { ReportsData, TargetMetrics } from '../types';
+import { ReportsData, TargetMetrics, ScoreComparisonItem } from '../types';
 
 interface ConsensusOverviewProps {
   reportsData: ReportsData;
@@ -162,7 +162,7 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-sm">
-              {scoreComparison.map(row => (
+              {score_comparison.map((row: ScoreComparisonItem) => (
                 <tr key={row.key} className="hover:bg-slate-800/30 transition">
                   <td className="py-3.5 px-4 font-medium text-slate-200">
                     {row.metric}

@@ -1,0 +1,810 @@
+{
+  "target_path": "target/APEC_mat_kinh_cho_nguoi_khiem_thi",
+  "total_files": 138,
+  "total_dirs": 34,
+  "total_lines": 27525,
+  "code_lines": 25760,
+  "blank_lines": 1765,
+  "languages": {
+    "Other (.txt)": {
+      "files": 2,
+      "lines": 71,
+      "code_lines": 69
+    },
+    "Dockerfile": {
+      "files": 1,
+      "lines": 30,
+      "code_lines": 29
+    },
+    "TOML": {
+      "files": 1,
+      "lines": 27,
+      "code_lines": 25
+    },
+    "Markdown": {
+      "files": 15,
+      "lines": 841,
+      "code_lines": 558
+    },
+    "Plain Text": {
+      "files": 3,
+      "lines": 104,
+      "code_lines": 99
+    },
+    "Other (.example)": {
+      "files": 2,
+      "lines": 22,
+      "code_lines": 21
+    },
+    "JSON": {
+      "files": 7,
+      "lines": 11552,
+      "code_lines": 11552
+    },
+    "SQL": {
+      "files": 1,
+      "lines": 44,
+      "code_lines": 44
+    },
+    "Python": {
+      "files": 39,
+      "lines": 6952,
+      "code_lines": 5915
+    },
+    "HTML": {
+      "files": 1,
+      "lines": 127,
+      "code_lines": 122
+    },
+    "CSS": {
+      "files": 1,
+      "lines": 759,
+      "code_lines": 758
+    },
+    "JavaScript": {
+      "files": 4,
+      "lines": 714,
+      "code_lines": 672
+    },
+    "TypeScript (React)": {
+      "files": 14,
+      "lines": 1890,
+      "code_lines": 1754
+    },
+    "TypeScript": {
+      "files": 37,
+      "lines": 3951,
+      "code_lines": 3744
+    },
+    "YAML": {
+      "files": 1,
+      "lines": 11,
+      "code_lines": 11
+    },
+    "Other (.gradle)": {
+      "files": 1,
+      "lines": 19,
+      "code_lines": 16
+    },
+    "Kotlin": {
+      "files": 4,
+      "lines": 385,
+      "code_lines": 345
+    },
+    "XML": {
+      "files": 1,
+      "lines": 1,
+      "code_lines": 1
+    },
+    "Shell Script": {
+      "files": 3,
+      "lines": 25,
+      "code_lines": 25
+    }
+  },
+  "key_files": {
+    "configs": [
+      "requirements.txt",
+      "Dockerfile",
+      "pyproject.toml",
+      ".env.example",
+      "mobile/package.json",
+      "mobile/tsconfig.json",
+      "mobile/.env.example",
+      "mobile/modules/mat-kinh-controls/package.json",
+      "mobile/modules/mat-kinh-controls/android/build.gradle"
+    ],
+    "docs": [
+      "Dockerfile",
+      "README.md",
+      "docs/MOBILE_ARCHITECTURE.md",
+      "docs/IMPLEMENTATION_STATUS.md",
+      "docs/VOICE_CONTEXT_020.md",
+      "docs/GUIDANCE_ACCEPTANCE_040.md",
+      "docs/ANDROID_SETUP.md",
+      "docs/ANDROID15_FIX.md",
+      "docs/INPUT_FIX_013.md",
+      "docs/UPLOAD_FIX_012.md",
+      "docs/RELEASE_040.md",
+      "docs/RELEASE_021.md",
+      "docs/HARDWARE_CONTROLS_030.md",
+      "docs/GUIDANCE_040.md",
+      "docs/RELEASE_030.md",
+      "docs/ANDROID_ACCEPTANCE.md"
+    ],
+    "ci_cd": [],
+    "tests": [
+      "tests/test_evaluate_mobile.py",
+      "tests/test_guidance_storage.py",
+      "tests/test_mobile_vision.py",
+      "tests/test_guidance_mobile_compat.py",
+      "tests/test_asr.py",
+      "tests/test_session.py",
+      "tests/test_download_model.py",
+      "tests/test_guidance_admin.py",
+      "tests/test_bundle.py",
+      "tests/test_guidance.py",
+      "tests/test_vision.py",
+      "tests/test_mobile_pipeline.py",
+      "tests/test_trial_token.py",
+      "tests/test_webrtc.py",
+      "tests/test_api.py",
+      "tests/test_analysis_api.py",
+      "tests/test_mobile_api.py",
+      "tests/test_guidance_search.py",
+      "mobile/tests/controlInput.test.ts",
+      "mobile/tests/recordingEvents.test.ts",
+      "mobile/tests/deviceTaskController.test.ts",
+      "mobile/tests/turnController.test.ts",
+      "mobile/tests/hardwareControlsNative.test.ts",
+      "mobile/tests/guidanceApi.test.ts",
+      "mobile/tests/useTurnController.test.tsx",
+      "mobile/tests/deviceRecovery.test.ts",
+      "mobile/tests/actionCommands.test.ts",
+      "mobile/tests/credentials.test.ts",
+      "mobile/tests/conversation.test.ts",
+      "mobile/tests/media.test.ts",
+      "mobile/tests/api.test.ts",
+      "mobile/tests/speech.test.ts",
+      "mobile/tests/useHardwareControls.test.tsx",
+      "mobile/tests/components/HomeScreen.test.tsx",
+      "mobile/tests/components/SettingsScreen.test.tsx",
+      "mobile/modules/mat-kinh-controls/android/src/test/java/expo/modules/matkinhcontrols/VolumeKeyPolicyTest.kt"
+    ]
+  },
+  "security_flags": [],
+  "structure": [
+    {
+      "name": "app",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "__init__.py",
+          "is_dir": false
+        },
+        {
+          "name": "asr.py",
+          "is_dir": false
+        },
+        {
+          "name": "bundle.py",
+          "is_dir": false
+        },
+        {
+          "name": "config.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_admin.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_api.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_contract.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_search.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_storage.py",
+          "is_dir": false
+        },
+        {
+          "name": "guidance_vision.py",
+          "is_dir": false
+        },
+        {
+          "name": "main.py",
+          "is_dir": false
+        },
+        {
+          "name": "mobile_api.py",
+          "is_dir": false
+        },
+        {
+          "name": "mobile_pipeline.py",
+          "is_dir": false
+        },
+        {
+          "name": "mobile_security.py",
+          "is_dir": false
+        },
+        {
+          "name": "session.py",
+          "is_dir": false
+        },
+        {
+          "name": "vision.py",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "docs",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "screenshots",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "assistant.png",
+              "is_dir": false
+            },
+            {
+              "name": "settings.png",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "ANDROID15_FIX.md",
+          "is_dir": false
+        },
+        {
+          "name": "ANDROID_ACCEPTANCE.md",
+          "is_dir": false
+        },
+        {
+          "name": "ANDROID_SETUP.md",
+          "is_dir": false
+        },
+        {
+          "name": "GUIDANCE_040.md",
+          "is_dir": false
+        },
+        {
+          "name": "GUIDANCE_ACCEPTANCE_040.md",
+          "is_dir": false
+        },
+        {
+          "name": "HARDWARE_CONTROLS_030.md",
+          "is_dir": false
+        },
+        {
+          "name": "IMPLEMENTATION_STATUS.md",
+          "is_dir": false
+        },
+        {
+          "name": "INPUT_FIX_013.md",
+          "is_dir": false
+        },
+        {
+          "name": "MOBILE_ARCHITECTURE.md",
+          "is_dir": false
+        },
+        {
+          "name": "RELEASE_021.md",
+          "is_dir": false
+        },
+        {
+          "name": "RELEASE_030.md",
+          "is_dir": false
+        },
+        {
+          "name": "RELEASE_040.md",
+          "is_dir": false
+        },
+        {
+          "name": "UPLOAD_FIX_012.md",
+          "is_dir": false
+        },
+        {
+          "name": "VL53L9CX_ToF.jpg",
+          "is_dir": false
+        },
+        {
+          "name": "VOICE_CONTEXT_020.md",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "migrations",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "001_guidance.sql",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "is_dir": true,
+      "children": [
+        {
+          "name": ".eas",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "workflows",
+              "is_dir": true
+            }
+          ]
+        },
+        {
+          "name": "assets",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "cue.wav",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "modules",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "mat-kinh-controls",
+              "is_dir": true
+            }
+          ]
+        },
+        {
+          "name": "plugins",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "withHardwareControls.js",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "src",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "components",
+              "is_dir": true
+            },
+            {
+              "name": "core",
+              "is_dir": true
+            },
+            {
+              "name": "hooks",
+              "is_dir": true
+            },
+            {
+              "name": "screens",
+              "is_dir": true
+            },
+            {
+              "name": "services",
+              "is_dir": true
+            },
+            {
+              "name": "theme.ts",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "tests",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "components",
+              "is_dir": true
+            },
+            {
+              "name": "actionCommands.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "api.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "controlInput.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "conversation.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "credentials.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "deviceRecovery.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "deviceTaskController.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "guidanceApi.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "hardwareControlsNative.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "media.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "recordingEvents.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "speech.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "turnController.test.ts",
+              "is_dir": false
+            },
+            {
+              "name": "useHardwareControls.test.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "useTurnController.test.tsx",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": ".env.example",
+          "is_dir": false
+        },
+        {
+          "name": "app.config.ts",
+          "is_dir": false
+        },
+        {
+          "name": "App.tsx",
+          "is_dir": false
+        },
+        {
+          "name": "babel.config.js",
+          "is_dir": false
+        },
+        {
+          "name": "eas.json",
+          "is_dir": false
+        },
+        {
+          "name": "index.ts",
+          "is_dir": false
+        },
+        {
+          "name": "jest.config.js",
+          "is_dir": false
+        },
+        {
+          "name": "package-lock.json",
+          "is_dir": false
+        },
+        {
+          "name": "package.json",
+          "is_dir": false
+        },
+        {
+          "name": "tsconfig.json",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "scripts",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "check.sh",
+          "is_dir": false
+        },
+        {
+          "name": "create_trial_token.py",
+          "is_dir": false
+        },
+        {
+          "name": "download_model.py",
+          "is_dir": false
+        },
+        {
+          "name": "evaluate_mobile.py",
+          "is_dir": false
+        },
+        {
+          "name": "migrate_guidance.py",
+          "is_dir": false
+        },
+        {
+          "name": "run_guidance_admin.sh",
+          "is_dir": false
+        },
+        {
+          "name": "run_mobile.sh",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "tests",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "test_analysis_api.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_api.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_asr.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_bundle.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_download_model.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_evaluate_mobile.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_guidance.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_guidance_admin.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_guidance_mobile_compat.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_guidance_search.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_guidance_storage.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_mobile_api.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_mobile_pipeline.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_mobile_vision.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_session.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_trial_token.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_vision.py",
+          "is_dir": false
+        },
+        {
+          "name": "test_webrtc.py",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "web",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "app.css",
+          "is_dir": false
+        },
+        {
+          "name": "app.js",
+          "is_dir": false
+        },
+        {
+          "name": "index.html",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": ".dockerignore",
+      "is_dir": false
+    },
+    {
+      "name": ".easignore",
+      "is_dir": false
+    },
+    {
+      "name": ".env.example",
+      "is_dir": false
+    },
+    {
+      "name": "Dockerfile",
+      "is_dir": false
+    },
+    {
+      "name": "model_config.json",
+      "is_dir": false
+    },
+    {
+      "name": "pyproject.toml",
+      "is_dir": false
+    },
+    {
+      "name": "README.md",
+      "is_dir": false
+    },
+    {
+      "name": "requirements-mobile.txt",
+      "is_dir": false
+    },
+    {
+      "name": "requirements.txt",
+      "is_dir": false
+    }
+  ],
+  "languages_sorted": [
+    {
+      "name": "JSON",
+      "files": 7,
+      "lines": 11552,
+      "code_lines": 11552
+    },
+    {
+      "name": "Python",
+      "files": 39,
+      "lines": 6952,
+      "code_lines": 5915
+    },
+    {
+      "name": "TypeScript",
+      "files": 37,
+      "lines": 3951,
+      "code_lines": 3744
+    },
+    {
+      "name": "TypeScript (React)",
+      "files": 14,
+      "lines": 1890,
+      "code_lines": 1754
+    },
+    {
+      "name": "CSS",
+      "files": 1,
+      "lines": 759,
+      "code_lines": 758
+    },
+    {
+      "name": "JavaScript",
+      "files": 4,
+      "lines": 714,
+      "code_lines": 672
+    },
+    {
+      "name": "Markdown",
+      "files": 15,
+      "lines": 841,
+      "code_lines": 558
+    },
+    {
+      "name": "Kotlin",
+      "files": 4,
+      "lines": 385,
+      "code_lines": 345
+    },
+    {
+      "name": "HTML",
+      "files": 1,
+      "lines": 127,
+      "code_lines": 122
+    },
+    {
+      "name": "Plain Text",
+      "files": 3,
+      "lines": 104,
+      "code_lines": 99
+    },
+    {
+      "name": "Other (.txt)",
+      "files": 2,
+      "lines": 71,
+      "code_lines": 69
+    },
+    {
+      "name": "SQL",
+      "files": 1,
+      "lines": 44,
+      "code_lines": 44
+    },
+    {
+      "name": "Dockerfile",
+      "files": 1,
+      "lines": 30,
+      "code_lines": 29
+    },
+    {
+      "name": "TOML",
+      "files": 1,
+      "lines": 27,
+      "code_lines": 25
+    },
+    {
+      "name": "Shell Script",
+      "files": 3,
+      "lines": 25,
+      "code_lines": 25
+    },
+    {
+      "name": "Other (.example)",
+      "files": 2,
+      "lines": 22,
+      "code_lines": 21
+    },
+    {
+      "name": "Other (.gradle)",
+      "files": 1,
+      "lines": 19,
+      "code_lines": 16
+    },
+    {
+      "name": "YAML",
+      "files": 1,
+      "lines": 11,
+      "code_lines": 11
+    },
+    {
+      "name": "XML",
+      "files": 1,
+      "lines": 1,
+      "code_lines": 1
+    }
+  ]
+}

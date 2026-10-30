@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Target Analysis (if target repository is present)
         run: |
-          if [ -d "target" ] && [ "$(ls -A target)" ]; then
+          if [ -d "target" ] && [ -n "$(find target -mindepth 1 ! -name '.gitkeep' ! -name 'README.md' 2>/dev/null | head -n 1)" ]; then
             python3 scripts/analyze-target.py target || true
           fi
 

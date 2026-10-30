@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import rawReportsData from './data/reports.json';
 import rawTargetMetrics from './data/target-metrics.json';
 import { ReportsData, TargetMetrics } from './types';
@@ -23,7 +23,7 @@ const targetMetrics = rawTargetMetrics as TargetMetrics;
 export function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'reports' | 'compare' | 'metrics'>('overview');
   const [selectedModelId, setSelectedModelId] = useState<string>(
-    reportsData.models[0]?.id || 'gemini-2-5-pro'
+    reportsData.models[0]?.id || 'claude-3-7-sonnet'
   );
   const [isGuideOpen, setIsGuideOpen] = useState(false);
 

@@ -87,7 +87,7 @@ Use the standardized prompt template located in:
 
 Feed your target codebase context and the prompt to different frontier AI models:
 - **Claude 3.7 Sonnet**
-- **Gemini 2.5 Pro**
+- **Gemini 3.8 Flash**
 - **GPT-4o**
 - **DeepSeek R1 / Llama 3**
 
@@ -105,8 +105,8 @@ Each model investigates:
 ### Step 4: Save Model Reports into `reports/`
 
 Save each AI model's response as a `.md` file in `reports/`:
-- `reports/gemini-2-5-pro.md`
 - `reports/claude-3-7-sonnet.md`
+- `reports/gemini-3-8-flash.md`
 - `reports/gpt-4o.md`
 - `reports/deepseek-r1.md`
 
@@ -185,7 +185,8 @@ The GitHub Actions workflow in [`.github/workflows/deploy.yml`](./.github/workfl
 | Command | Action |
 | :--- | :--- |
 | `npm run dev` | Compiles reports and starts local Vite development server |
-| `npm run build` | Compiles reports and builds optimized static assets in `dist/` |
+| `npm run typecheck` | Validates TypeScript types across the project (`tsc --noEmit`) |
+| `npm run build` | Runs typecheck, compiles reports, and builds optimized static assets in `dist/` |
 | `npm run preview` | Previews the production build locally |
 | `npm run analyze` | Runs python target repo scanner (`scripts/analyze-target.py`) |
 | `npm run compile-reports` | Parses `reports/*.md` and generates `src/data/reports.json` |
@@ -193,4 +194,4 @@ The GitHub Actions workflow in [`.github/workflows/deploy.yml`](./.github/workfl
 ---
 
 ## 📄 License
-ISC
+Apache License 2.0 (see [LICENSE](./LICENSE))
