@@ -23,7 +23,7 @@ const targetMetrics = rawTargetMetrics as TargetMetrics;
 export function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'reports' | 'compare' | 'metrics'>('overview');
   const [selectedModelId, setSelectedModelId] = useState<string>(
-    reportsData.models[0]?.id || 'claude-3-7-sonnet'
+    reportsData.models[0]?.id || 'chatgpt'
   );
   const [isGuideOpen, setIsGuideOpen] = useState(false);
 

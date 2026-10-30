@@ -1,206 +1,168 @@
 ---
 model: "Gemini 3.8 Flash"
 model_id: "gemini-3-8-flash"
-target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
-target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
+target_repo: "kreier/review1"
+target_commit: "8ea40b9b49db42532c01adda2c5c949a5bbae6e8"
 review_date: "2026-10-30"
 scores:
-  overall: 8.3
-  architecture: 9.2
-  code_quality: 8.9
-  security: 8.3
-  documentation: 6.8
-summary: "An exceptionally well-engineered multimodal assistive system for the visually impaired combining an on-device local Zipformer STT engine, Google Gemini 3.8 Flash vision reasoning, and a specialized React Native/Expo client with tactile hardware volume button controls. However, the root onboarding documentation suffers from severe cognitive friction, presenting conflicting desktop WebRTC vs mobile architectures, unexplained version increments, and speculative hardware references."
+  overall: 8.0
+  architecture: 8.8
+  code_quality: 7.8
+  security: 7.2
+  documentation: 8.4
+summary: "review1 is a well-structured, four-layer AI review and repository intelligence framework. It demonstrates clean decoupling between target codebases and the review harness, robust null-safe consensus scoring, and semantic finding deduplication. However, validation currently relies on a custom hand-written routine rather than the documented JSON Schema, the .gitignore contains an un-ignore exception that can expose target README files, and the line classifier uses regex heuristics rather than parser-backed analysis."
 key_strengths:
-  - "Privacy-first architecture: voice STT executed locally via Zipformer/sherpa-onnx; raw audio is never sent to third-party cloud APIs"
-  - "Purpose-built accessibility UX: native hardware volume key triggers and audio cue feedback designed specifically for blind users"
-  - "Rigorous safety controls: SHA-256 token authorization, concurrency work-gates, strict multipart bounds, and unprivileged Docker user"
+  - "Decoupled four-layer architecture (Collector, Analyzer, Intelligence, Presentation) cleanly isolates target repositories from the review orchestrator"
+  - "Fair consensus calculation preserves missing scores as null instead of skewing averages with zeros"
+  - "Semantic finding deduplication clusters issues by vulnerability concept and tokens rather than coarse filename matching"
+  - "Thorough 15-dimension investigation methodology with specialized review prompts and detailed architectural documentation"
+  - "Automated unit test suites in Python and Node.js integrated into a GitHub Actions CI workflow"
 key_weaknesses:
-  - "Severe root onboarding and architectural disconnect: root README presents a desktop WebRTC demo, contains unresolved notes of author confusion, and highlights speculative LiDAR hardware absent from the operational codebase"
-  - "Documentation is fragmented across 15+ Vietnamese markdown files without an overarching English architecture map"
-  - "Zipformer ASR model weights are licensed under CC BY-NC-ND 4.0, restricting commercial use and derivative fine-tuning"
-  - "Stateful in-memory concurrency gate (WorkGate) limits horizontal scalability across multiple container instances"
+  - "Dual source of truth: custom validator in scripts/compile-reports.js does not execute schemas/report.schema.json"
+  - ".gitignore exception (!/target/README.md) allows a cloned target repository's root README to be committed"
+  - "Heuristic line classifier miscategorizes Python docstrings, multiline comments, and SQL source code"
+  - "Regex security pattern scanner provides only preliminary surface checks and lacks false-positive filtering"
+  - "Cross-report target commit and repository consistency is not verified during report compilation"
 security_findings:
   - id: "SEC-GEMINI-001"
+    severity: "HIGH"
+    status: "verified"
+    confidence: 0.95
+    category: "validation"
+    title: "Runtime validation bypasses formal JSON Schema"
+    file: "scripts/compile-reports.js"
+    line_start: 70
+    line_end: 131
+    affected_function: "validateReport"
+    description: "Although schemas/report.schema.json defines comprehensive constraints, compile-reports.js implements validateReport() with custom JavaScript logic rather than validating against the JSON Schema with Ajv."
+    evidence: "scripts/compile-reports.js does not import or execute schemas/report.schema.json."
+    recommendation: "Import Ajv and compile schemas/report.schema.json directly to enforce schema integrity as the single source of truth."
+  - id: "SEC-GEMINI-002"
+    severity: "HIGH"
+    status: "verified"
+    confidence: 0.95
+    category: "privacy_isolation"
+    title: "Un-ignore rule in .gitignore risks staging target repository README"
+    file: ".gitignore"
+    line_start: 152
+    line_end: 155
+    affected_function: ".gitignore"
+    description: "The rule '!/target/README.md' causes any README.md belonging to an untrusted or private target cloned into target/ to be tracked and staged into git."
+    evidence: ".gitignore line 154: '!/target/README.md' overrides the '/target/*' ignore pattern."
+    recommendation: "Remove '!/target/README.md' from .gitignore to guarantee strict isolation for all target files."
+  - id: "SEC-GEMINI-003"
+    severity: "HIGH"
+    status: "verified"
+    confidence: 0.92
+    category: "metrics_accuracy"
+    title: "Heuristic line classifier overstates LOC measurement accuracy"
+    file: "scripts/analyze-target.py"
+    line_start: 271
+    line_end: 335
+    affected_function: "count_lines_detailed"
+    description: "The line classifier relies on line-start string matching and naive quote flags rather than language AST parsers, leading to misclassification of Python docstrings, inline comments, and SQL scripts."
+    evidence: "Lines with inline comments after code are not separated, and Python multiline strings are treated as comments."
+    recommendation: "Clearly label line counts as heuristic estimates or integrate mature tools like scc or cloc."
+  - id: "SEC-GEMINI-004"
+    severity: "MEDIUM"
+    status: "probable"
+    confidence: 0.88
+    category: "security_scanner"
+    title: "Preliminary pattern scanner creates potential false assurance"
+    file: "scripts/analyze-target.py"
+    line_start: 134
+    line_end: 220
+    affected_function: "scan_security_patterns"
+    description: "Pattern scanning only matches common AWS/GitHub token patterns and private keys. The UI should explicitly warn that 0 findings does not represent a clean security audit."
+    evidence: "SUSPICIOUS_PATTERNS contains only 7 regular expression patterns."
+    recommendation: "Display a prominent disclaimer in the UI and provide integration hooks for Gitleaks and Semgrep."
+  - id: "SEC-GEMINI-005"
     severity: "MEDIUM"
     status: "verified"
     confidence: 0.94
-    category: "availability"
-    title: "Denial-of-Service Risk via Unthrottled Public Endpoints"
-    file: "app/main.py & app/mobile_api.py"
-    line_start: 35
-    line_end: 60
-    affected_function: "health & webrtc"
-    description: "While WorkGate caps active inference to 2 slots, public endpoints (/api/health, /api/webrtc/offer) lack IP-based rate limiting, allowing connection flooding."
-    evidence: "FastAPI routers declare no request throttling or IP limiters on exposed /health or /api/webrtc/offer endpoints."
-    recommendation: "Wrap FastAPI with slowapi or enforce rate limits at ingress proxy."
-  - id: "SEC-GEMINI-002"
-    severity: "LOW"
+    category: "consensus_integrity"
+    title: "Consensus engine aggregates reports without target commit verification"
+    file: "scripts/compile-reports.js"
+    line_start: 355
+    line_end: 375
+    affected_function: "compileReports"
+    description: "compileReports iterates over all files in reports/ and combines their scores into a single average without checking whether target_repo or target_commit match."
+    evidence: "calculateAverage unconditionally maps over all parsed reports."
+    recommendation: "Enforce strict target repository and target commit equality across reports during compilation."
+  - id: "SEC-GEMINI-006"
+    severity: "MEDIUM"
     status: "verified"
-    confidence: 0.88
-    category: "persistence"
-    title: "Local State Dependency in Guidance Storage"
-    file: "app/guidance_storage.py"
-    line_start: 22
-    line_end: 50
-    affected_function: "get_connection"
-    description: "Guidance sessions rely on local SQLite/in-memory storage; container restarts without persistent volume mounts will drop active multi-turn guidance state."
-    evidence: "Database connection opens local file SQLite instance without transactional replication or external persistence."
-    recommendation: "Mount persistent volume in Docker container or migrate to hosted PostgreSQL/Redis."
-  - id: "SEC-GEMINI-003"
-    severity: "LOW"
-    status: "probable"
-    confidence: 0.85
-    category: "licensing"
-    title: "Missing Root Repository License"
-    file: "README.md"
-    description: "Repository documentation acknowledges the license is missing; creates legal ambiguity for third-party contributors and pilot testers."
-    evidence: "README explicitly references absent license terms and prospective licensing."
-    recommendation: "Adopt standard open-source license file (MIT or Apache 2.0)."
-  - id: "SEC-GEMINI-004"
-    severity: "LOW"
-    status: "verified"
-    confidence: 0.96
-    category: "documentation_architecture"
-    title: "Root README Architectural Disconnect and Conflicting Entry Points"
-    file: "README.md"
-    line_start: 16
-    line_end: 131
-    affected_function: "README & onboarding documentation"
-    description: "The root README instructs users to launch a local desktop WebRTC Chrome demo (app.main:app) while the production mobile API is app.mobile_api:app. It also showcases speculative hardware (VL53L9CX ToF LiDAR) without codebase integration, and contains explicit author confusion notes regarding versions and tokens."
-    evidence: "README lines 16, 128: 'I\\'m not sure why we need a Gemini token. Or what the v0.2.1 version of the Android app did. Or v0.3 or v0.4. You might try it out.'"
-    impact: "Creates severe cognitive friction, onboarding failure, and uncertainty for reviewers and engineers attempting to operate the system."
-    recommendation: "Restructure root README with a unified architectural diagram clearly separating the Android client, the FastAPI Docker container, the local Zipformer STT engine, and the Gemini 3.8 Flash cloud API."
+    confidence: 0.86
+    category: "sanitization"
+    title: "Path sanitization does not redact credentials or private metadata"
+    file: "scripts/compile-reports.js"
+    line_start: 29
+    line_end: 42
+    affected_function: "sanitizePaths"
+    description: "sanitizePaths only replaces workstation directory prefixes (/Users/... and /home/...), leaving Git author emails, remote URLs, and tokens in report bodies unsanitized."
+    evidence: "Regular expressions in sanitizePaths only target directory paths."
+    recommendation: "Add general credential and token masking to the sanitization pipeline."
 ---
 
-# Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị
+# Technical Review Report: `kreier/review1`
+
 **Reviewer:** Gemini 3.8 Flash  
 **Inspection Date:** 2026-10-30  
-**Target Codebase:** `target/APEC_mat_kinh_cho_nguoi_khiem_thi`  
+**Target Codebase:** `kreier/review1` (`8ea40b9b49db42532c01adda2c5c949a5bbae6e8`)  
+**Repository:** <https://github.com/kreier/review1>  
 
 ---
 
-## 1. Executive Summary & Scope
-**APEC Mắt Kính Cho Người Khiếm Thị** (Smart Glasses for the Visually Impaired) is an advanced assistive technology platform combining a mobile computer vision client, local edge speech recognition, and generative multimodal AI reasoning.
+## 1. Executive Summary & Architecture Evaluation
 
-Despite the project name ("Smart Glasses"), the actual implementation is an **Android smartphone application** paired with a **Python FastAPI backend**, designed as an accessible prototype for visually impaired individuals.
+The `review1` repository implements a four-layer framework designed to automate quantitative metrics extraction and qualitative multi-model AI code review for any cloned target repository.
 
-The operational flow works as follows:
-1. **User speaks a query or command** (triggered via physical hardware volume keys on their phone or headset).
-2. **Local Speech Recognition (ASR)** transcribes Vietnamese speech in real-time on the server CPU using Zipformer (`hynt/Zipformer-30M-RNNT-Streaming-6000h`), keeping raw microphone audio entirely private.
-3. **Multimodal Vision Analysis** sends a discrete still JPEG snapshot and the transcribed text query to Google Gemini (`gemini-3.8-flash` or `gemini-3.1-flash-lite`) with privacy flag `store=false`.
-4. **Interactive Spoken Guidance** reads the AI response aloud via native Android Text-to-Speech (TTS) and TalkBack, directing the user through physical tasks (identifying home appliances, remote controls, finding buttons, reading labels).
+The architecture cleanly enforces separation of concerns:
+1. **Collector Layer:** Identifies target files, extracts Git metadata, and safely identifies directory boundaries.
+2. **Analyzer Layer (`scripts/analyze-target.py`):** Deterministically evaluates language distribution, line counts (code, comments, blanks, docs, data), test inventory, and surface security indicators.
+3. **Intelligence Layer (`prompts/`, `reports/`, `scripts/compile-reports.js`):** Standardizes prompts across 15 investigation dimensions, aggregates reports from independent models, computes fair consensus scores (treating missing evaluations as `null` rather than zero), and groups security findings semantically.
+4. **Presentation Layer (`src/`):** An interactive React/Vite/Tailwind dashboard that visualizes consensus scorecards, cross-model score comparison matrices, detailed findings, and metrics breakdowns.
 
----
-
-## 2. Languages & Technology Stack
-- **Backend & AI Pipeline:**
-  - **Python 3.11** with FastAPI, Uvicorn, and Starlette
-  - **Sherpa-ONNX & PyAV**: Local CPU streaming speech-to-text (STT) runtime
-  - **Google GenAI SDK**: Multimodal vision analysis powered by `gemini-3.8-flash`
-  - **WebRTC & PyAV**: Local peer-to-peer audio/video streaming for desktop development only
-  - **SQLite & PostgreSQL / Redis**: State storage, remote guidance profiles, and migrations
-- **Mobile Client (`mobile/`):**
-  - **TypeScript & React Native** (v0.86) on **Expo 57**
-  - **React 19**
-  - **Expo Camera, Expo Audio, Expo Speech, Expo Haptics, Expo SecureStore**
-  - **Native Android Hardware Hooks**: Custom Kotlin module (`KeyEventModule.kt`) intercepting volume buttons to allow non-visual shutter and mic activation
-- **Containerization & Deployment:**
-  - Multi-stage Dockerfile (`python:3.11.16-slim-bookworm`) with pre-cached model weights
-  - EAS Build profile for Android APK generation
+### Key Strengths
+- **Isolation of Target Code:** The target repository is kept in `target/` and excluded by default, preventing external code from polluting the framework.
+- **Fair Consensus Math:** Handling missing dimension scores as `null` prevents unassessed dimensions from dragging down composite averages.
+- **Semantic Finding Deduplication:** Combining vulnerability concept extraction with token Jaccard similarity avoids the naive flaw of merging unrelated security bugs just because they reside in the same file.
+- **Reproducibility Foundation:** Every report tracks model ID, target commit SHA, and review date.
 
 ---
 
-## 3. Quantitative Metrics & Code Scope
-According to deterministic metrics extracted from the target repository:
-- **Total Files Analyzed:** 138 files
-- **Total Lines of Code:** 25,760 lines (27,525 total lines, 1,765 blank)
-- **Directory Hierarchy:** 34 directories
-- **Language Breakdown:**
-  - **JSON & Schemas:** 11,552 lines (44.8%) across 7 files
-  - **Python (Backend & Tests):** 5,915 lines (23.0%) across 39 files
-  - **TypeScript (Mobile & Services):** 3,744 lines (14.5%) across 37 files
-  - **TypeScript React (Components & Screens):** 1,754 lines (6.8%) across 14 files
-  - **CSS / Styles:** 758 lines (2.9%)
-  - **JavaScript:** 672 lines (2.6%) across 4 files
-  - **Markdown (Documentation):** 558 lines (2.2%) across 15 files
-  - **Kotlin (Native Android Hooks):** 345 lines (1.3%) across 4 files
-- **Test Suite Scope:**
-  - **Backend:** 18 pytest suites (~130KB of test code, 322 passing tests) with extensive mocks for WebRTC, Gemini API errors, rate quotas, and token gates.
-  - **Mobile:** 16 Jest test suites (329 passing unit tests) covering native hardware controls, state machines, and turn controllers.
+## 2. In-Depth Code Quality & Technical Analysis
+
+### 2.1 Schema Validation & Source of Truth (`scripts/compile-reports.js`)
+The repository specifies a formal schema in `schemas/report.schema.json`. However, `compile-reports.js` does not execute this schema via a validator such as Ajv. Instead, it maintains a hand-written `validateReport()` function.
+- This creates drift between documented schema guarantees and compiler behavior.
+- Invalid statuses or missing finding fields produce console warnings rather than compilation errors in strict mode.
+
+### 2.2 Target `.gitignore` Rule Risk
+In `.gitignore`, line 154 specifies:
+```gitignore
+/target/*
+!/target/.gitkeep
+!/target/README.md
+```
+Because `!/target/README.md` is unignored, cloning any external repository directly into `target/` that contains a root `README.md` will immediately make the target repository's README tracked and stageable in Git. This presents a data leak risk for private codebases.
+
+### 2.3 Heuristic Line Classification (`scripts/analyze-target.py`)
+`count_lines_detailed()` classifies lines using regex and prefix matching. While useful for rapid approximation:
+- Python triple-quoted docstrings and multiline strings are treated identically.
+- Code lines containing trailing inline comments (`x = 1 # comment`) are counted solely as code lines without separating comments.
+- SQL source files are unconditionally mapped to `data`.
+- Documentation should be qualified as heuristic estimates rather than AST-verified physical counts.
+
+### 2.4 Consensus Engine & Commit Consistency
+The report compiler aggregates all `.md` files present in `reports/` indiscriminately. If reports from different target repositories or different commit revisions are present, they are averaged into the same consensus scorecard without error.
 
 ---
 
-## 4. Architectural Disambiguation & Key Component Breakdown
+## 3. Actionable Recommendations & Prioritized Roadmap
 
-To resolve the significant onboarding ambiguity in the repository, this section directly answers the core operational questions:
-
-### 1. Why is there a Docker container?
-The `Dockerfile` packages the production mobile backend (`app.mobile_api:app`):
-- **Pre-baked STT Model Weights**: In Stage 1, it downloads the ~51 MB Zipformer ONNX model into `/opt/zipformer`.
-- **Production Cloud Deployment**: During local pilot testing, developers ran the server on a MacBook via temporary Cloudflare Quick Tunnels (`trycloudflare.com`). The Docker container exists to deploy the FastAPI backend to permanent cloud infrastructure (Google Cloud Run, AWS ECS, or a VPS) running under an unprivileged user (`pilot`, UID 10001).
-
-### 2. What is the Android app doing?
-Located in `mobile/`, the app is an assistive "eyes" prototype for blind users:
-- Captures environment photos from the rear camera and records Vietnamese voice queries.
-- Submits them via HTTPS multipart (`/api/v2/analyze`) with a Bearer trial token stored in Android `SecureStore`.
-- Converts the returned structured guidance into speech using native Android TTS / TalkBack.
-- Overrides volume buttons so users never need to touch the phone screen.
-
-### 3. What are versions 0.2, 0.3, and 0.4 doing — how are they different?
-- **v0.2.x (0.2.0 / 0.2.1)** — *Voice Context & Multi-turn Q&A*:
-  - Enables asking follow-up questions about the *same captured image* ("Hỏi thêm về ảnh này") without re-taking the photo (cached up to 5 minutes, 3 conversational turns).
-  - Voice command confirmation flow ("Gửi câu hỏi", "Nói lại câu hỏi", "Hủy câu hỏi") eliminating typing.
-- **v0.3.0** — *Hardware Volume Button Overrides*:
-  - Native Kotlin interceptor for volume keys: single short press Volume Up starts recording ("Đang nghe"), second press snaps and sends; short press Volume Down stops/cancels immediately; long press adjusts volume.
-- **v0.4.0** — *Remote Control Tactile Guidance Assistant*:
-  - Dedicated guidance mode assisting blind users in operating unfamiliar home appliance remotes (TVs, ACs).
-  - Uses an approved database of remote models (`migrations/001_guidance.sql`) to provide physical tactile directions ("Feel the raised power button at top-left").
-  - Includes an administrative approval dashboard (`localhost:8081`, `app/guidance_admin.py`).
-
-### 4. What is the video input?
-- **There is no continuous video stream analyzed by AI.**
-- In the desktop demo (`app/main.py`), WebRTC streams video for local browser preview only; pressing "Chụp ảnh" captures a single canvas frame.
-- In the Android app, the camera preview assists aiming, but only a **single JPEG frame** (clamped to max 1280px, $\le 2\text{ MiB}$) is captured and transmitted per turn.
-
-### 5. Is the video locally analyzed, or a still image sent to Gemini 3.8 Flash?
-- **A still JPEG snapshot is transmitted to Google Gemini 3.8 Flash (or Gemini 3.1 Flash-Lite)** via the Gemini API with `store=false`.
-- Video is NOT analyzed locally. Local processing is strictly limited to camera framing, image resizing, and Zipformer audio transcription.
-
-### 6. What is Zipformer used for — audio input or output?
-- **Strictly Audio INPUT (Speech-to-Text / ASR).**
-- It runs `hynt/Zipformer-30M-RNNT-Streaming-6000h` locally on the server CPU via `sherpa-onnx`. It transcribes user voice queries into Vietnamese text so raw voice audio is never transmitted to Google.
-- Audio **output** (reading answers back) is handled by native Android TTS / TalkBack (`expo-speech`) or browser speech synthesis.
-
-### 7. What should this system run on?
-- **Client**: Any Android smartphone (Android 10+ / API 29+) running the Expo APK.
-- **Server**: A Linux/Docker environment or macOS machine (Python 3.11, CPU with AVX/libgomp, ~2 GB RAM) with an active internet connection to reach Google's Gemini API.
-
----
-
-## 5. Documentation & Onboarding Assessment
-- **Rating:** 6.8 / 10 (Calibrated from initial 9.0)
-- **The Documentation Paradox**:
-  - *Internal Technical Depth (High)*: The `docs/` folder contains exceptional, highly detailed technical specifications (`MOBILE_ARCHITECTURE.md`, `HARDWARE_CONTROLS_030.md`, `GUIDANCE_040.md`).
-  - *Root "Front-Door" Sanity (Poor)*: The root `README.md` creates severe cognitive friction. It leads with a local MacBook WebRTC browser demo (`app.main:app`), fails to explain why Docker exists, concludes with an unintegrated photo of an STMicroelectronics VL53L9CX ToF LiDAR sensor, and contains literal notes of author confusion regarding version numbers and tokens.
-- **Language Barrier**: All core documentation is written exclusively in Vietnamese, with no English architecture overview or visual component topology map.
-
----
-
-## 6. Security & Vulnerability Analysis
-- **Token Security:** Authentication uses SHA-256 digested tokens validated via `hmac.compare_digest` in `app/mobile_security.py`, preventing timing attacks. Tokens are stored in Android `SecureStore` (backed by Android Keystore / hardware-backed TEE).
-- **Resource Protection:**
-  - `WorkGate` restricts concurrent heavy inference requests to 2 leases, failing closed with HTTP 429 when saturated.
-  - Multipart payloads are bounded by custom stream wrappers (`bounded_form`), enforcing max 4 MiB payload and 1280px image dimensions to guard against memory exhaustion.
-- **Container Isolation:** The Dockerfile creates a non-root system user (`pilot`, UID 10001) and drops root privileges before launching the Uvicorn process.
-- **Areas of Risk:**
-  1. *Public Endpoint Rate Limiting:* `/api/health` and `/api/webrtc/offer` lack IP-based rate limiting. A reverse proxy (e.g. Nginx, Cloudflare) must front the service in production.
-  2. *Model Weight Licensing:* The speech model weights (`hynt/Zipformer-30M-RNNT-Streaming-6000h`) use CC BY-NC-ND 4.0, which prohibits commercial exploitation and derivative works.
-
----
-
-## 7. Actionable Recommendations & Roadmap
-1. **Restructure Root README (Immediate)**: Replace the confusing desktop WebRTC guide with a clear client-server architecture diagram highlighting the Android app (`mobile/`) and FastAPI Docker backend (`app.mobile_api:app`).
-2. **Add Reverse Proxy / Rate Limiter (Immediate)**: Place Caddy or Nginx with `limit_req` in front of the container to protect health check and audio upload routes from denial-of-service.
-3. **Clarify Project Licensing (Short Term)**: Add an explicit open-source license (e.g. MIT or Apache-2.0) to clarify the rights of contributors and adopters.
-4. **Decouple Admission State for Scaling (Medium Term)**: When expanding beyond pilot testing (more than 2 concurrent users), migrate `WorkGate` leases and token state to a shared Redis cluster.
+1. **P0 (Immediate):** Remove `!/target/README.md` from `.gitignore` to guarantee target isolation.
+2. **P0 (Immediate):** Integrate `ajv` into `scripts/compile-reports.js` to execute `schemas/report.schema.json` directly.
+3. **P1:** Validate target commit and repository consistency across all reports during compilation.
+4. **P1:** Add clear UI indicators distinguishing live CI analysis from committed snapshot metrics.
+5. **P2:** Expand line counting using parser-backed tools (e.g. `scc` or `cloc`) and enrich secret scanning with Gitleaks integration.

@@ -184,9 +184,16 @@ def sanitize_matched_string(val: str) -> str:
 
 def get_git_metadata(repo_dir: Path) -> dict:
     """Extract Git commit SHA, branch, author, date, and origin info if repository exists."""
-    git_dir = repo_dir / ".git"
-    if not git_dir.exists():
-        # Check if parent or current is git
+    try:
+        check = subprocess.run(
+            ["git", "-C", str(repo_dir), "rev-parse", "--is-inside-work-tree"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True
+        )
+        if check.returncode != 0 or check.stdout.strip() != "true":
+            return {}
+    except Exception:
         return {}
 
     try:
@@ -263,6 +270,10 @@ def should_exclude_dir(dir_path: Path, custom_excludes: set = None) -> bool:
 
     # Check for Rust target artifact vs legitimate target directory name
     if is_rust_target_dir(dir_path):
+        return True
+
+    # Exclude framework target/ staging folder when analyzing the framework itself
+    if name == "target" and (dir_path / ".gitkeep").exists() and (dir_path.parent / "package.json").exists():
         return True
 
     return False

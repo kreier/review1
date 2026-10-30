@@ -109,16 +109,15 @@ flowchart TD
     end
 
     subgraph Models["AI Models (Intelligence)"]
-        CLAUDE["Claude 3.7 Sonnet"]
+        CHATGPT["ChatGPT"]
         GEMINI["Gemini 3.8 Flash"]
-        GPT["GPT-4o"]
-        LOCAL["Local / Ollama Models"]
+        OTHER["Claude / DeepSeek / Other Models"]
     end
 
     subgraph RawReports["reports/*.md"]
-        REP1["reports/claude-3-7-sonnet.md"]
+        REP1["reports/chatgpt.md"]
         REP2["reports/gemini-3-8-flash.md"]
-        REP3["reports/gpt-4o.md"]
+        REP3["reports/archive/ (Historical Targets)"]
     end
 
     subgraph Compiler["scripts/compile-reports.js"]

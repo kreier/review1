@@ -1,201 +1,111 @@
 {
   "analyzer_version": "2.0.0",
-  "analyzed_at": "2026-10-30T07:48:04.001021+00:00",
-  "target_path": "target/APEC_mat_kinh_cho_nguoi_khiem_thi",
+  "analyzed_at": "2026-10-30T08:22:46.670334+00:00",
+  "target_path": ".",
   "git_info": {
-    "commit_hash": "d9ba1e0d42e1241471b1fb58df1efb9d345c6721",
-    "short_hash": "d9ba1e0",
+    "commit_hash": "8ea40b9b49db42532c01adda2c5c949a5bbae6e8",
+    "short_hash": "8ea40b9",
     "branch": "main",
-    "commit_date": "2026-10-28 12:41:05 +0700",
+    "commit_date": "2026-10-30 14:54:38 +0700",
     "author": "Matthias Kreier",
-    "commit_message": "Update README with license and LIDAR sensor details",
-    "remote_url": "https://github.com/thanh1912-ut/APEC_mat_kinh_cho_nguoi_khiem_thi.git"
+    "commit_message": "fix(ui): update header version badge to v1.1.0 and refresh compiled reports",
+    "remote_url": "https://github.com/kreier/review1.git"
   },
-  "total_files": 138,
-  "total_dirs": 34,
-  "total_lines": 27525,
-  "code_lines": 13282,
-  "comment_lines": 254,
-  "blank_lines": 1765,
-  "doc_lines": 627,
-  "data_lines": 11597,
+  "total_files": 42,
+  "total_dirs": 11,
+  "total_lines": 10891,
+  "code_lines": 3201,
+  "comment_lines": 151,
+  "blank_lines": 764,
+  "doc_lines": 1467,
+  "data_lines": 5308,
   "languages": {
-    "Plain Text": {
-      "files": 5,
-      "lines": 175,
-      "code_lines": 99,
-      "comment_lines": 0,
-      "blank_lines": 7,
-      "doc_lines": 69,
-      "data_lines": 0,
-      "category": "doc"
-    },
-    "Dockerfile": {
-      "files": 1,
-      "lines": 30,
-      "code_lines": 29,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "config"
-    },
-    "TOML": {
-      "files": 1,
-      "lines": 27,
-      "code_lines": 25,
-      "comment_lines": 0,
-      "blank_lines": 2,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "config"
-    },
-    "Markdown": {
-      "files": 15,
-      "lines": 841,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 283,
-      "doc_lines": 558,
-      "data_lines": 0,
-      "category": "doc"
-    },
-    "Other (.example)": {
-      "files": 2,
-      "lines": 22,
-      "code_lines": 21,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "JSON": {
-      "files": 7,
-      "lines": 11552,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 11552,
-      "category": "data"
-    },
-    "SQL": {
-      "files": 1,
-      "lines": 44,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 44,
-      "category": "data"
-    },
-    "Python": {
-      "files": 39,
-      "lines": 6952,
-      "code_lines": 5729,
-      "comment_lines": 186,
-      "blank_lines": 1037,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
     "HTML": {
       "files": 1,
-      "lines": 127,
-      "code_lines": 122,
+      "lines": 17,
+      "code_lines": 17,
       "comment_lines": 0,
-      "blank_lines": 5,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    "Plain Text": {
+      "files": 2,
+      "lines": 359,
+      "code_lines": 284,
+      "comment_lines": 0,
+      "blank_lines": 75,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    "Markdown": {
+      "files": 14,
+      "lines": 1814,
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 347,
+      "doc_lines": 1467,
+      "data_lines": 0,
+      "category": "doc"
+    },
+    "JSON": {
+      "files": 8,
+      "lines": 5308,
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 5308,
+      "category": "data"
+    },
+    "TypeScript": {
+      "files": 3,
+      "lines": 150,
+      "code_lines": 138,
+      "comment_lines": 2,
+      "blank_lines": 10,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    "Python": {
+      "files": 2,
+      "lines": 828,
+      "code_lines": 638,
+      "comment_lines": 79,
+      "blank_lines": 111,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    "JavaScript": {
+      "files": 2,
+      "lines": 621,
+      "code_lines": 476,
+      "comment_lines": 68,
+      "blank_lines": 77,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    "TypeScript (React)": {
+      "files": 9,
+      "lines": 1678,
+      "code_lines": 1552,
+      "comment_lines": 1,
+      "blank_lines": 125,
       "doc_lines": 0,
       "data_lines": 0,
       "category": "code"
     },
     "CSS": {
       "files": 1,
-      "lines": 759,
-      "code_lines": 758,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "JavaScript": {
-      "files": 4,
-      "lines": 714,
-      "code_lines": 671,
+      "lines": 116,
+      "code_lines": 96,
       "comment_lines": 1,
-      "blank_lines": 42,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "TypeScript (React)": {
-      "files": 14,
-      "lines": 1890,
-      "code_lines": 1747,
-      "comment_lines": 7,
-      "blank_lines": 136,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "TypeScript": {
-      "files": 37,
-      "lines": 3951,
-      "code_lines": 3700,
-      "comment_lines": 44,
-      "blank_lines": 207,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "YAML": {
-      "files": 1,
-      "lines": 11,
-      "code_lines": 11,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "config"
-    },
-    "Other (.gradle)": {
-      "files": 1,
-      "lines": 19,
-      "code_lines": 16,
-      "comment_lines": 0,
-      "blank_lines": 3,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "Kotlin": {
-      "files": 4,
-      "lines": 385,
-      "code_lines": 333,
-      "comment_lines": 12,
-      "blank_lines": 40,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    "XML": {
-      "files": 1,
-      "lines": 1,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 1,
-      "category": "data"
-    },
-    "Shell Script": {
-      "files": 3,
-      "lines": 25,
-      "code_lines": 21,
-      "comment_lines": 4,
-      "blank_lines": 0,
+      "blank_lines": 19,
       "doc_lines": 0,
       "data_lines": 0,
       "category": "code"
@@ -203,468 +113,120 @@
   },
   "key_files": {
     "configs": [
-      "requirements.txt",
-      "Dockerfile",
-      "pyproject.toml",
-      ".env.example",
-      "mobile/package.json",
-      "mobile/tsconfig.json",
-      "mobile/.env.example",
-      "mobile/modules/mat-kinh-controls/package.json",
-      "mobile/modules/mat-kinh-controls/android/build.gradle"
+      "package.json",
+      "tsconfig.json"
     ],
     "docs": [
-      "Dockerfile",
+      "LICENSE",
       "README.md",
-      "docs/MOBILE_ARCHITECTURE.md",
-      "docs/IMPLEMENTATION_STATUS.md",
-      "docs/VOICE_CONTEXT_020.md",
-      "docs/GUIDANCE_ACCEPTANCE_040.md",
-      "docs/ANDROID_SETUP.md",
-      "docs/ANDROID15_FIX.md",
-      "docs/INPUT_FIX_013.md",
-      "docs/UPLOAD_FIX_012.md",
-      "docs/RELEASE_040.md",
-      "docs/RELEASE_021.md",
-      "docs/HARDWARE_CONTROLS_030.md",
-      "docs/GUIDANCE_040.md",
-      "docs/RELEASE_030.md",
-      "docs/ANDROID_ACCEPTANCE.md"
+      "docs/ARCHITECTURE.md",
+      "docs/REPORT_SCHEMA.md",
+      "docs/INVESTIGATION_SCOPE.md",
+      "prompts/architecture.md",
+      "prompts/documentation.md",
+      "prompts/security.md",
+      "reports/archive/README.md"
     ],
     "ci_cd": [],
     "tests": [
-      "tests/test_evaluate_mobile.py",
-      "tests/test_guidance_storage.py",
-      "tests/test_mobile_vision.py",
-      "tests/test_guidance_mobile_compat.py",
-      "tests/test_asr.py",
-      "tests/test_session.py",
-      "tests/test_download_model.py",
-      "tests/test_guidance_admin.py",
-      "tests/test_bundle.py",
-      "tests/test_guidance.py",
-      "tests/test_vision.py",
-      "tests/test_mobile_pipeline.py",
-      "tests/test_trial_token.py",
-      "tests/test_webrtc.py",
-      "tests/test_api.py",
-      "tests/test_analysis_api.py",
-      "tests/test_mobile_api.py",
-      "tests/test_guidance_search.py",
-      "mobile/tests/controlInput.test.ts",
-      "mobile/tests/recordingEvents.test.ts",
-      "mobile/tests/deviceTaskController.test.ts",
-      "mobile/tests/turnController.test.ts",
-      "mobile/tests/hardwareControlsNative.test.ts",
-      "mobile/tests/guidanceApi.test.ts",
-      "mobile/tests/useTurnController.test.tsx",
-      "mobile/tests/deviceRecovery.test.ts",
-      "mobile/tests/actionCommands.test.ts",
-      "mobile/tests/credentials.test.ts",
-      "mobile/tests/conversation.test.ts",
-      "mobile/tests/media.test.ts",
-      "mobile/tests/api.test.ts",
-      "mobile/tests/speech.test.ts",
-      "mobile/tests/useHardwareControls.test.tsx",
-      "mobile/tests/components/HomeScreen.test.tsx",
-      "mobile/tests/components/SettingsScreen.test.tsx",
-      "mobile/modules/mat-kinh-controls/android/src/test/java/expo/modules/matkinhcontrols/VolumeKeyPolicyTest.kt"
+      "tests/test_analyzer.py",
+      "tests/test_compiler.mjs"
     ]
   },
   "security_flags": [
     {
-      "file": "tests/test_evaluate_mobile.py",
-      "type": "Hardcoded Credentials in Assignment",
-      "severity": "MEDIUM",
-      "category": "secret",
-      "match": "secr...e\"",
-      "confidence": 0.85,
-      "scanner": "heuristic_regex_preliminary"
-    },
-    {
-      "file": "tests/test_mobile_vision.py",
-      "type": "Hardcoded Credentials in Assignment",
-      "severity": "MEDIUM",
-      "category": "secret",
-      "match": "api_...y\"",
-      "confidence": 0.85,
-      "scanner": "heuristic_regex_preliminary"
-    },
-    {
-      "file": "tests/test_guidance.py",
-      "type": "Hardcoded Credentials in Assignment",
-      "severity": "MEDIUM",
-      "category": "secret",
-      "match": "api_...y\"",
-      "confidence": 0.85,
-      "scanner": "heuristic_regex_preliminary"
-    },
-    {
-      "file": "tests/test_guidance.py",
-      "type": "Hardcoded Credentials in Assignment",
-      "severity": "MEDIUM",
-      "category": "secret",
-      "match": "api_...y\"",
-      "confidence": 0.85,
-      "scanner": "heuristic_regex_preliminary"
-    },
-    {
-      "file": "tests/test_vision.py",
-      "type": "Hardcoded Credentials in Assignment",
-      "severity": "MEDIUM",
-      "category": "secret",
-      "match": "api_...t\"",
+      "file": "tests/test_analyzer.py",
+      "type": "AWS Access Key ID",
+      "severity": "HIGH",
+      "category": "credentials",
+      "match": "AKIA...EF",
       "confidence": 0.85,
       "scanner": "heuristic_regex_preliminary"
     }
   ],
   "structure": [
     {
-      "name": "app",
-      "is_dir": true,
-      "children": [
-        {
-          "name": "__init__.py",
-          "is_dir": false
-        },
-        {
-          "name": "asr.py",
-          "is_dir": false
-        },
-        {
-          "name": "bundle.py",
-          "is_dir": false
-        },
-        {
-          "name": "config.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_admin.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_api.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_contract.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_search.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_storage.py",
-          "is_dir": false
-        },
-        {
-          "name": "guidance_vision.py",
-          "is_dir": false
-        },
-        {
-          "name": "main.py",
-          "is_dir": false
-        },
-        {
-          "name": "mobile_api.py",
-          "is_dir": false
-        },
-        {
-          "name": "mobile_pipeline.py",
-          "is_dir": false
-        },
-        {
-          "name": "mobile_security.py",
-          "is_dir": false
-        },
-        {
-          "name": "session.py",
-          "is_dir": false
-        },
-        {
-          "name": "vision.py",
-          "is_dir": false
-        }
-      ]
-    },
-    {
       "name": "docs",
       "is_dir": true,
       "children": [
         {
-          "name": "screenshots",
-          "is_dir": true,
-          "children": [
-            {
-              "name": "assistant.png",
-              "is_dir": false
-            },
-            {
-              "name": "settings.png",
-              "is_dir": false
-            }
-          ]
-        },
-        {
-          "name": "ANDROID15_FIX.md",
+          "name": "ARCHITECTURE.md",
           "is_dir": false
         },
         {
-          "name": "ANDROID_ACCEPTANCE.md",
+          "name": "INVESTIGATION_SCOPE.md",
           "is_dir": false
         },
         {
-          "name": "ANDROID_SETUP.md",
-          "is_dir": false
-        },
-        {
-          "name": "GUIDANCE_040.md",
-          "is_dir": false
-        },
-        {
-          "name": "GUIDANCE_ACCEPTANCE_040.md",
-          "is_dir": false
-        },
-        {
-          "name": "HARDWARE_CONTROLS_030.md",
-          "is_dir": false
-        },
-        {
-          "name": "IMPLEMENTATION_STATUS.md",
-          "is_dir": false
-        },
-        {
-          "name": "INPUT_FIX_013.md",
-          "is_dir": false
-        },
-        {
-          "name": "MOBILE_ARCHITECTURE.md",
-          "is_dir": false
-        },
-        {
-          "name": "RELEASE_021.md",
-          "is_dir": false
-        },
-        {
-          "name": "RELEASE_030.md",
-          "is_dir": false
-        },
-        {
-          "name": "RELEASE_040.md",
-          "is_dir": false
-        },
-        {
-          "name": "UPLOAD_FIX_012.md",
-          "is_dir": false
-        },
-        {
-          "name": "VL53L9CX_ToF.jpg",
-          "is_dir": false
-        },
-        {
-          "name": "VOICE_CONTEXT_020.md",
+          "name": "REPORT_SCHEMA.md",
           "is_dir": false
         }
       ]
     },
     {
-      "name": "migrations",
+      "name": "prompts",
       "is_dir": true,
       "children": [
         {
-          "name": "001_guidance.sql",
+          "name": "architecture.md",
+          "is_dir": false
+        },
+        {
+          "name": "code-quality.md",
+          "is_dir": false
+        },
+        {
+          "name": "documentation.md",
+          "is_dir": false
+        },
+        {
+          "name": "REVIEW_PROMPT.md",
+          "is_dir": false
+        },
+        {
+          "name": "security.md",
           "is_dir": false
         }
       ]
     },
     {
-      "name": "mobile",
+      "name": "reports",
       "is_dir": true,
       "children": [
         {
-          "name": ".eas",
+          "name": "archive",
           "is_dir": true,
           "children": [
             {
-              "name": "workflows",
+              "name": "apec-smart-glasses",
               "is_dir": true
-            }
-          ]
-        },
-        {
-          "name": "assets",
-          "is_dir": true,
-          "children": [
+            },
             {
-              "name": "cue.wav",
+              "name": "README.md",
               "is_dir": false
             }
           ]
         },
         {
-          "name": "modules",
-          "is_dir": true,
-          "children": [
-            {
-              "name": "mat-kinh-controls",
-              "is_dir": true
-            }
-          ]
-        },
-        {
-          "name": "plugins",
-          "is_dir": true,
-          "children": [
-            {
-              "name": "withHardwareControls.js",
-              "is_dir": false
-            }
-          ]
-        },
-        {
-          "name": "src",
-          "is_dir": true,
-          "children": [
-            {
-              "name": "components",
-              "is_dir": true
-            },
-            {
-              "name": "core",
-              "is_dir": true
-            },
-            {
-              "name": "hooks",
-              "is_dir": true
-            },
-            {
-              "name": "screens",
-              "is_dir": true
-            },
-            {
-              "name": "services",
-              "is_dir": true
-            },
-            {
-              "name": "theme.ts",
-              "is_dir": false
-            }
-          ]
-        },
-        {
-          "name": "tests",
-          "is_dir": true,
-          "children": [
-            {
-              "name": "components",
-              "is_dir": true
-            },
-            {
-              "name": "actionCommands.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "api.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "controlInput.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "conversation.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "credentials.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "deviceRecovery.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "deviceTaskController.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "guidanceApi.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "hardwareControlsNative.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "media.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "recordingEvents.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "speech.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "turnController.test.ts",
-              "is_dir": false
-            },
-            {
-              "name": "useHardwareControls.test.tsx",
-              "is_dir": false
-            },
-            {
-              "name": "useTurnController.test.tsx",
-              "is_dir": false
-            }
-          ]
-        },
-        {
-          "name": ".env.example",
+          "name": "chatgpt.md",
           "is_dir": false
         },
         {
-          "name": "app.config.ts",
+          "name": "gemini-3-8-flash.md",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "schemas",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "analysis.schema.json",
           "is_dir": false
         },
         {
-          "name": "App.tsx",
-          "is_dir": false
-        },
-        {
-          "name": "babel.config.js",
-          "is_dir": false
-        },
-        {
-          "name": "eas.json",
-          "is_dir": false
-        },
-        {
-          "name": "index.ts",
-          "is_dir": false
-        },
-        {
-          "name": "jest.config.js",
-          "is_dir": false
-        },
-        {
-          "name": "package-lock.json",
-          "is_dir": false
-        },
-        {
-          "name": "package.json",
-          "is_dir": false
-        },
-        {
-          "name": "tsconfig.json",
+          "name": "report.schema.json",
           "is_dir": false
         }
       ]
@@ -674,31 +236,85 @@
       "is_dir": true,
       "children": [
         {
-          "name": "check.sh",
+          "name": "analyze-target.py",
           "is_dir": false
         },
         {
-          "name": "create_trial_token.py",
+          "name": "compile-reports.js",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "components",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "ConsensusOverview.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "GithubIcon.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "Header.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "ModelCompareView.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "ModelReportView.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "TargetMetricsView.tsx",
+              "is_dir": false
+            },
+            {
+              "name": "WorkflowGuide.tsx",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "is_dir": true,
+          "children": [
+            {
+              "name": "reports.json",
+              "is_dir": false
+            },
+            {
+              "name": "target-metrics.json",
+              "is_dir": false
+            }
+          ]
+        },
+        {
+          "name": "App.tsx",
           "is_dir": false
         },
         {
-          "name": "download_model.py",
+          "name": "index.css",
           "is_dir": false
         },
         {
-          "name": "evaluate_mobile.py",
+          "name": "main.tsx",
           "is_dir": false
         },
         {
-          "name": "migrate_guidance.py",
+          "name": "types.ts",
           "is_dir": false
         },
         {
-          "name": "run_guidance_admin.sh",
-          "is_dir": false
-        },
-        {
-          "name": "run_mobile.sh",
+          "name": "vite-env.d.ts",
           "is_dir": false
         }
       ]
@@ -708,123 +324,33 @@
       "is_dir": true,
       "children": [
         {
-          "name": "test_analysis_api.py",
+          "name": "test_analyzer.py",
           "is_dir": false
         },
         {
-          "name": "test_api.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_asr.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_bundle.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_download_model.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_evaluate_mobile.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_guidance.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_guidance_admin.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_guidance_mobile_compat.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_guidance_search.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_guidance_storage.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_mobile_api.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_mobile_pipeline.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_mobile_vision.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_session.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_trial_token.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_vision.py",
-          "is_dir": false
-        },
-        {
-          "name": "test_webrtc.py",
+          "name": "test_compiler.mjs",
           "is_dir": false
         }
       ]
-    },
-    {
-      "name": "web",
-      "is_dir": true,
-      "children": [
-        {
-          "name": "app.css",
-          "is_dir": false
-        },
-        {
-          "name": "app.js",
-          "is_dir": false
-        },
-        {
-          "name": "index.html",
-          "is_dir": false
-        }
-      ]
-    },
-    {
-      "name": ".dockerignore",
-      "is_dir": false
-    },
-    {
-      "name": ".easignore",
-      "is_dir": false
-    },
-    {
-      "name": ".env.example",
-      "is_dir": false
     },
     {
       "name": ".gitignore",
       "is_dir": false
     },
     {
-      "name": "Dockerfile",
+      "name": "index.html",
       "is_dir": false
     },
     {
-      "name": "model_config.json",
+      "name": "LICENSE",
       "is_dir": false
     },
     {
-      "name": "pyproject.toml",
+      "name": "package-lock.json",
+      "is_dir": false
+    },
+    {
+      "name": "package.json",
       "is_dir": false
     },
     {
@@ -832,44 +358,74 @@
       "is_dir": false
     },
     {
-      "name": "requirements-mobile.txt",
+      "name": "ROADMAP.md",
       "is_dir": false
     },
     {
-      "name": "requirements.txt",
+      "name": "target-metrics.json",
+      "is_dir": false
+    },
+    {
+      "name": "tsconfig.json",
+      "is_dir": false
+    },
+    {
+      "name": "vite.config.ts",
       "is_dir": false
     }
   ],
   "languages_sorted": [
     {
+      "name": "TypeScript (React)",
+      "files": 9,
+      "lines": 1678,
+      "code_lines": 1552,
+      "comment_lines": 1,
+      "blank_lines": 125,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    {
       "name": "Python",
-      "files": 39,
-      "lines": 6952,
-      "code_lines": 5729,
-      "comment_lines": 186,
-      "blank_lines": 1037,
+      "files": 2,
+      "lines": 828,
+      "code_lines": 638,
+      "comment_lines": 79,
+      "blank_lines": 111,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    {
+      "name": "JavaScript",
+      "files": 2,
+      "lines": 621,
+      "code_lines": 476,
+      "comment_lines": 68,
+      "blank_lines": 77,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
+    },
+    {
+      "name": "Plain Text",
+      "files": 2,
+      "lines": 359,
+      "code_lines": 284,
+      "comment_lines": 0,
+      "blank_lines": 75,
       "doc_lines": 0,
       "data_lines": 0,
       "category": "code"
     },
     {
       "name": "TypeScript",
-      "files": 37,
-      "lines": 3951,
-      "code_lines": 3700,
-      "comment_lines": 44,
-      "blank_lines": 207,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "TypeScript (React)",
-      "files": 14,
-      "lines": 1890,
-      "code_lines": 1747,
-      "comment_lines": 7,
-      "blank_lines": 136,
+      "files": 3,
+      "lines": 150,
+      "code_lines": 138,
+      "comment_lines": 2,
+      "blank_lines": 10,
       "doc_lines": 0,
       "data_lines": 0,
       "category": "code"
@@ -877,32 +433,10 @@
     {
       "name": "CSS",
       "files": 1,
-      "lines": 759,
-      "code_lines": 758,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "JavaScript",
-      "files": 4,
-      "lines": 714,
-      "code_lines": 671,
+      "lines": 116,
+      "code_lines": 96,
       "comment_lines": 1,
-      "blank_lines": 42,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "Kotlin",
-      "files": 4,
-      "lines": 385,
-      "code_lines": 333,
-      "comment_lines": 12,
-      "blank_lines": 40,
+      "blank_lines": 19,
       "doc_lines": 0,
       "data_lines": 0,
       "category": "code"
@@ -910,134 +444,35 @@
     {
       "name": "HTML",
       "files": 1,
-      "lines": 127,
-      "code_lines": 122,
-      "comment_lines": 0,
-      "blank_lines": 5,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "Plain Text",
-      "files": 5,
-      "lines": 175,
-      "code_lines": 99,
-      "comment_lines": 0,
-      "blank_lines": 7,
-      "doc_lines": 69,
-      "data_lines": 0,
-      "category": "doc"
-    },
-    {
-      "name": "Dockerfile",
-      "files": 1,
-      "lines": 30,
-      "code_lines": 29,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "config"
-    },
-    {
-      "name": "TOML",
-      "files": 1,
-      "lines": 27,
-      "code_lines": 25,
-      "comment_lines": 0,
-      "blank_lines": 2,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "config"
-    },
-    {
-      "name": "Shell Script",
-      "files": 3,
-      "lines": 25,
-      "code_lines": 21,
-      "comment_lines": 4,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "Other (.example)",
-      "files": 2,
-      "lines": 22,
-      "code_lines": 21,
-      "comment_lines": 0,
-      "blank_lines": 1,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "Other (.gradle)",
-      "files": 1,
-      "lines": 19,
-      "code_lines": 16,
-      "comment_lines": 0,
-      "blank_lines": 3,
-      "doc_lines": 0,
-      "data_lines": 0,
-      "category": "code"
-    },
-    {
-      "name": "YAML",
-      "files": 1,
-      "lines": 11,
-      "code_lines": 11,
+      "lines": 17,
+      "code_lines": 17,
       "comment_lines": 0,
       "blank_lines": 0,
       "doc_lines": 0,
       "data_lines": 0,
-      "category": "config"
+      "category": "code"
     },
     {
       "name": "JSON",
-      "files": 7,
-      "lines": 11552,
+      "files": 8,
+      "lines": 5308,
       "code_lines": 0,
       "comment_lines": 0,
       "blank_lines": 0,
       "doc_lines": 0,
-      "data_lines": 11552,
+      "data_lines": 5308,
       "category": "data"
     },
     {
       "name": "Markdown",
-      "files": 15,
-      "lines": 841,
+      "files": 14,
+      "lines": 1814,
       "code_lines": 0,
       "comment_lines": 0,
-      "blank_lines": 283,
-      "doc_lines": 558,
+      "blank_lines": 347,
+      "doc_lines": 1467,
       "data_lines": 0,
       "category": "doc"
-    },
-    {
-      "name": "SQL",
-      "files": 1,
-      "lines": 44,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 44,
-      "category": "data"
-    },
-    {
-      "name": "XML",
-      "files": 1,
-      "lines": 1,
-      "code_lines": 0,
-      "comment_lines": 0,
-      "blank_lines": 0,
-      "doc_lines": 0,
-      "data_lines": 1,
-      "category": "data"
     }
   ]
 }

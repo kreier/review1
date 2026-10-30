@@ -97,42 +97,43 @@ Use the master prompt or specialized prompts:
 - 📖 Onboarding & Documentation Reality: [`prompts/documentation.md`](./prompts/documentation.md)
 
 Feed your target codebase context to different frontier AI models:
-- **Claude 3.7 Sonnet**
-- **Gemini 3.8 Flash**
-- **GPT-4o**
-- **DeepSeek R1 / Llama 3 / Ollama**
+- **ChatGPT** (OpenAI)
+- **Gemini 3.8 Flash** (Google)
+- **Claude 3.7 Sonnet** (Anthropic)
+- **DeepSeek R1 / Llama 3 / Ollama** (Open weights / local)
 
 ---
 
 ### Step 4: Save Model Reports into `reports/`
 
 Save each AI model's response as a `.md` file in `reports/`:
-- `reports/claude-3-7-sonnet.md`
-- `reports/gemini-3-8-flash.md`
-- `reports/gpt-4o.md`
+- `reports/chatgpt.md` (e.g. independently run ChatGPT review)
+- `reports/gemini-3-8-flash.md` (e.g. Gemini 3.8 Flash review)
+
+> **Integrity & Real Reviews Guarantee**: Only verified, authentically executed model reviews are stored in `reports/`. Never commit simulated or hallucinated model outputs. Historical single-target reviews (e.g., APEC smart glasses evaluated by Gemini 3.8 Flash) are archived under `reports/archive/`.
 
 #### Report Frontmatter Format
 ```yaml
 ---
-model: "Claude 3.7 Sonnet"
-model_id: "claude-3-7-sonnet"
-target_repo: "APEC Mắt Kính Cho Người Khiếm Thị"
-target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
+model: "ChatGPT"
+model_id: "chatgpt"
+target_repo: "kreier/review1"
+target_commit: "8ea40b9b49db42532c01adda2c5c949a5bbae6e8"
 review_date: "2026-10-30"
 scores:
-  overall: 8.9
-  architecture: 9.3
-  code_quality: 9.1
-  security: 8.4
-  documentation: 9.2
-summary: "An exemplary assistive engineering project..."
+  overall: 7.8
+  architecture: 8.5
+  code_quality: 7.5
+  security: 7.0
+  documentation: 8.2
+summary: "A recognizable architecture, a defined investigation methodology..."
 key_strengths:
-  - "Rigorous state machine modeling"
+  - "Clear separation of target code and review framework"
 key_weaknesses:
-  - "In-memory WorkGate admission control"
+  - "Dual source of truth between validator and report schema"
 security_findings:
   - id: "SEC-001"
-    severity: "MEDIUM" # CRITICAL | HIGH | MEDIUM | LOW
+    severity: "HIGH" # CRITICAL | HIGH | MEDIUM | LOW
     status: "verified"  # verified | probable | unverified
     confidence: 0.95
     category: "availability"

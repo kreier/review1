@@ -182,6 +182,11 @@ const VULN_CONCEPT_MAP = [
   { concept: 'state_persistence', terms: ['sqlite', 'storage', 'ephemeral', 'persistence', 'restart', 'restarts', 'data loss', 'loss'] },
   { concept: 'injection', terms: ['injection', 'sqli', 'xss', 'command injection'] },
   { concept: 'auth_credentials', terms: ['auth', 'authentication', 'unauthenticated', 'authorization', 'token', 'secret', 'password', 'key'] },
+  { concept: 'schema_validation', terms: ['schema', 'validator', 'validation', 'ajv'] },
+  { concept: 'metrics_classification', terms: ['classifier', 'classification', 'loc', 'line count', 'counting'] },
+  { concept: 'path_sanitization', terms: ['sanitize', 'sanitizer', 'sanitization', 'redact', 'redaction'] },
+  { concept: 'privacy_isolation', terms: ['gitignore', 'unignore', 'isolation', 'leak', 'stageable'] },
+  { concept: 'ci_provenance', terms: ['provenance', 'snapshot', 'actions', 'workflow'] },
 ];
 
 function extractConcepts(text) {

@@ -119,7 +119,7 @@ npm run dev`;
               <span>Save Reports into reports/</span>
             </div>
             <p className="text-xs text-slate-400">
-              Save each model's markdown report into the <code className="text-cyan-300">reports/</code> folder (e.g. <code className="text-slate-300 font-mono">reports/gemini-2-5-pro.md</code>, <code className="text-slate-300 font-mono">reports/claude-3-7-sonnet.md</code>).
+              Save each model's markdown report into the <code className="text-cyan-300">reports/</code> folder (e.g. <code className="text-slate-300 font-mono">reports/chatgpt.md</code>, <code className="text-slate-300 font-mono">reports/gemini-3-8-flash.md</code>).
             </p>
           </div>
 

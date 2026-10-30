@@ -151,7 +151,6 @@ vite.config.ts.timestamp-*
 # Target repository cloned for review
 /target/*
 !/target/.gitkeep
-!/target/README.md
 
 # Temporary root analysis output
 /target-metrics.json
