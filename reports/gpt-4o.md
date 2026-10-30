@@ -2,6 +2,7 @@
 model: "GPT-4o"
 model_id: "gpt-4o"
 target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
+target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
 review_date: "2026-10-30"
 scores:
   overall: 8.6
@@ -19,18 +20,42 @@ key_weaknesses:
   - "Non-commercial license on speech recognition model weights limits commercialization"
   - "Missing automated vulnerability auditing (e.g. pip-audit, npm audit) in GitHub Actions"
 security_findings:
-  - severity: "MEDIUM"
+  - id: "SEC-GPT4O-001"
+    severity: "MEDIUM"
+    status: "verified"
+    confidence: 0.92
+    category: "availability"
     title: "Denial of Service Risk on Unauthenticated Routes"
     file: "app/main.py"
+    line_start: 35
+    line_end: 78
+    affected_function: "health_check"
     description: "WebRTC and health check routes do not enforce rate limiting or connection limits."
-  - severity: "LOW"
+    evidence: "FastAPI server handles requests without client IP throttling or socket caps on unauthenticated routes."
+    recommendation: "Introduce connection throttling and reverse proxy rate limits."
+  - id: "SEC-GPT4O-002"
+    severity: "LOW"
+    status: "verified"
+    confidence: 0.89
+    category: "persistence"
     title: "Ephemeral State Storage in Local SQLite"
     file: "app/guidance_storage.py"
+    line_start: 18
+    line_end: 45
+    affected_function: "init_db"
     description: "Guidance sessions and feedback records stored in local SQLite without automated backups."
-  - severity: "LOW"
+    evidence: "SQLite file resides in ephemeral container path without volume mapping in default deployment manifest."
+    recommendation: "Use persistent Docker volume mount or centralized persistent storage."
+  - id: "SEC-GPT4O-003"
+    severity: "LOW"
+    status: "probable"
+    confidence: 0.85
+    category: "licensing"
     title: "Missing Formal License File"
     file: "LICENSE"
     description: "Root repository lacks a clear license declaration, creating legal ambiguity."
+    evidence: "No LICENSE or COPYING file present in root of target repository."
+    recommendation: "Provide standard open-source license."
 ---
 
 # Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị

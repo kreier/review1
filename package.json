@@ -8,7 +8,11 @@
   "scripts": {
     "dev": "node scripts/compile-reports.js && vite",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --noEmit && node scripts/compile-reports.js && vite build",
+    "test": "node --test tests/test_compiler.mjs",
+    "test:python": "python3 -m unittest discover tests",
+    "test:all": "npm test && npm run test:python && npm run typecheck",
+    "validate-reports": "node scripts/compile-reports.js --validate-only",
+    "build": "tsc --noEmit && node scripts/compile-reports.js --strict && vite build",
     "preview": "vite preview",
     "analyze": "python3 scripts/analyze-target.py",
     "compile-reports": "node scripts/compile-reports.js"

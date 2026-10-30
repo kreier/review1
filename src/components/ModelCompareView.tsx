@@ -80,9 +80,10 @@ export const ModelCompareView: React.FC<ModelCompareViewProps> = ({ reports }) =
 
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-3.5">
           {metrics.map(m => {
-            const scoreA = modelA.scores[m.key] || 0;
-            const scoreB = modelB.scores[m.key] || 0;
-            const diff = Number((scoreA - scoreB).toFixed(1));
+            const scoreA = modelA.scores[m.key];
+            const scoreB = modelB.scores[m.key];
+            const hasBoth = scoreA !== null && scoreB !== null && scoreA !== undefined && scoreB !== undefined;
+            const diff = hasBoth ? Number((scoreA - scoreB).toFixed(1)) : null;
 
             return (
               <div key={m.key} className="bg-slate-950 p-4 rounded-xl border border-slate-800">
@@ -90,19 +91,25 @@ export const ModelCompareView: React.FC<ModelCompareViewProps> = ({ reports }) =
                 <div className="flex items-center justify-between mt-2">
                   <div className="text-center">
                     <span className="text-[10px] text-slate-400 block truncate max-w-[70px]">{modelA.model}</span>
-                    <span className="text-lg font-bold text-white">{scoreA}</span>
+                    <span className="text-lg font-bold text-white">
+                      {scoreA !== null && scoreA !== undefined ? scoreA.toFixed(1) : '—'}
+                    </span>
                   </div>
                   <div className="text-center px-1">
                     <span className="text-[10px] text-slate-400 block">Diff</span>
                     <span className={`text-xs font-bold ${
-                      diff > 0 ? 'text-emerald-400' : diff < 0 ? 'text-rose-400' : 'text-slate-400'
+                      diff !== null
+                        ? (diff > 0 ? 'text-emerald-400' : diff < 0 ? 'text-rose-400' : 'text-slate-400')
+                        : 'text-slate-500'
                     }`}>
-                      {diff > 0 ? `+${diff}` : diff === 0 ? '0.0' : diff}
+                      {diff !== null ? (diff > 0 ? `+${diff}` : diff === 0 ? '0.0' : diff) : '—'}
                     </span>
                   </div>
                   <div className="text-center">
                     <span className="text-[10px] text-slate-400 block truncate max-w-[70px]">{modelB.model}</span>
-                    <span className="text-lg font-bold text-white">{scoreB}</span>
+                    <span className="text-lg font-bold text-white">
+                      {scoreB !== null && scoreB !== undefined ? scoreB.toFixed(1) : '—'}
+                    </span>
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ShieldAlert, 
   CheckCircle2, 
@@ -9,7 +9,10 @@ import {
   Lock, 
   BookCheck,
   TrendingUp,
-  Cpu
+  Cpu,
+  ChevronDown,
+  ChevronUp,
+  SearchCheck
 } from 'lucide-react';
 import { ReportsData, TargetMetrics, ScoreComparisonItem } from '../types';
 
@@ -25,12 +28,19 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
   onSelectModel,
 }) => {
   const { average_scores, score_comparison, security_audit, reports, models } = reportsData;
+  const [expandedClusterId, setExpandedClusterId] = useState<string | null>(null);
 
-  const getScoreColor = (score: number) => {
+  const getScoreColor = (score: number | null | undefined) => {
+    if (score === null || score === undefined) return 'text-slate-400 bg-slate-800/50 border-slate-700/50';
     if (score >= 8.5) return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
     if (score >= 7.0) return 'text-blue-400 bg-blue-500/10 border-blue-500/30';
     if (score >= 5.0) return 'text-amber-400 bg-amber-500/10 border-amber-500/30';
     return 'text-rose-400 bg-rose-500/10 border-rose-500/30';
+  };
+
+  const formatScore = (val: number | null | undefined) => {
+    if (val === null || val === undefined) return '—';
+    return val.toFixed(1);
   };
 
   const getSeverityBadge = (severity: string) => {
@@ -45,6 +55,22 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
       default:
         return 'bg-slate-700/50 text-slate-300 border-slate-600/50';
     }
+  };
+
+  const getStatusBadge = (status?: string) => {
+    switch (status?.toLowerCase()) {
+      case 'verified':
+        return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40';
+      case 'probable':
+        return 'bg-amber-500/15 text-amber-300 border-amber-500/40';
+      case 'unverified':
+      default:
+        return 'bg-slate-800 text-slate-400 border-slate-700';
+    }
+  };
+
+  const toggleCluster = (id: string) => {
+    setExpandedClusterId(prev => (prev === id ? null : id));
   };
 
   return (
@@ -68,8 +94,8 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <Award className="w-4 h-4 text-indigo-400" />
             </div>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-3xl font-extrabold text-white">{average_scores.overall}</span>
-              <span className="text-xs text-slate-500">/ 10</span>
+              <span className="text-3xl font-extrabold text-white">{formatScore(average_scores.overall)}</span>
+              {average_scores.overall !== null && <span className="text-xs text-slate-500">/ 10</span>}
             </div>
             <div className="mt-2 text-[11px] text-slate-400">Composite verdict</div>
           </div>
@@ -80,8 +106,8 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <Layers className="w-4 h-4 text-cyan-400" />
             </div>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-3xl font-extrabold text-white">{average_scores.architecture}</span>
-              <span className="text-xs text-slate-500">/ 10</span>
+              <span className="text-3xl font-extrabold text-white">{formatScore(average_scores.architecture)}</span>
+              {average_scores.architecture !== null && <span className="text-xs text-slate-500">/ 10</span>}
             </div>
             <div className="mt-2 text-[11px] text-slate-400">Modularity & design</div>
           </div>
@@ -92,8 +118,8 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <FileCode2 className="w-4 h-4 text-blue-400" />
             </div>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-3xl font-extrabold text-white">{average_scores.code_quality}</span>
-              <span className="text-xs text-slate-500">/ 10</span>
+              <span className="text-3xl font-extrabold text-white">{formatScore(average_scores.code_quality)}</span>
+              {average_scores.code_quality !== null && <span className="text-xs text-slate-500">/ 10</span>}
             </div>
             <div className="mt-2 text-[11px] text-slate-400">Typing, linting, tests</div>
           </div>
@@ -104,8 +130,8 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <Lock className="w-4 h-4 text-rose-400" />
             </div>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-3xl font-extrabold text-white">{average_scores.security}</span>
-              <span className="text-xs text-slate-500">/ 10</span>
+              <span className="text-3xl font-extrabold text-white">{formatScore(average_scores.security)}</span>
+              {average_scores.security !== null && <span className="text-xs text-slate-500">/ 10</span>}
             </div>
             <div className="mt-2 text-[11px] text-slate-400">Vulnerabilities & posture</div>
           </div>
@@ -116,8 +142,8 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <BookCheck className="w-4 h-4 text-emerald-400" />
             </div>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-3xl font-extrabold text-white">{average_scores.documentation}</span>
-              <span className="text-xs text-slate-500">/ 10</span>
+              <span className="text-3xl font-extrabold text-white">{formatScore(average_scores.documentation)}</span>
+              {average_scores.documentation !== null && <span className="text-xs text-slate-500">/ 10</span>}
             </div>
             <div className="mt-2 text-[11px] text-slate-400">Readmes & docstrings</div>
           </div>
@@ -169,15 +195,16 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
                   </td>
                   <td className="py-3.5 px-4 text-center">
                     <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold border ${getScoreColor(row.average)}`}>
-                      {row.average.toFixed(1)}
+                      {formatScore(row.average)}
                     </span>
                   </td>
                   {models.map(m => {
-                    const score = Number(row[m.id]) || 0;
+                    const rawVal = row[m.id];
+                    const numVal = rawVal !== null && rawVal !== undefined ? Number(rawVal) : null;
                     return (
                       <td key={m.id} className="py-3.5 px-4 text-center">
-                        <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold border ${getScoreColor(score)}`}>
-                          {score.toFixed(1)}
+                        <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold border ${getScoreColor(numVal)}`}>
+                          {formatScore(numVal)}
                         </span>
                       </td>
                     );
@@ -204,59 +231,108 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
                 </span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                Issues flagged across models, synthesized into unified findings with consensus tracking
+                Issues flagged across models with evidence tracking, verification classification, and confidence ratings
               </p>
             </div>
           </div>
         </div>
 
         <div className="space-y-3.5">
-          {security_audit.clusters.map((finding, idx) => (
-            <div
-              key={idx}
-              className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-slate-700 transition space-y-2"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center space-x-2.5">
-                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${getSeverityBadge(finding.severity)}`}>
-                    {finding.severity}
-                  </span>
-                  <h4 className="font-semibold text-slate-200 text-sm">
-                    {finding.title}
-                  </h4>
-                </div>
-                {finding.file && (
-                  <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-900 text-cyan-300 border border-slate-800">
-                    {finding.file}
-                  </span>
-                )}
-              </div>
+          {security_audit.clusters.map((cluster, idx) => {
+            const clusterKey = cluster.id || `cluster-${idx}`;
+            const isExpanded = expandedClusterId === clusterKey;
 
-              <p className="text-xs text-slate-400 leading-relaxed">
-                {finding.description}
-              </p>
-
-              <div className="flex items-center space-x-2 pt-1 text-[11px] text-slate-400">
-                <span className="font-medium text-slate-400">Identified by:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {finding.reportedByModels.map((m, mIdx) => (
-                    <span
-                      key={mIdx}
-                      className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/60 font-medium"
-                    >
-                      {m}
+            return (
+              <div
+                key={clusterKey}
+                className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-slate-700 transition space-y-3"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center space-x-2.5 flex-wrap gap-y-1">
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${getSeverityBadge(cluster.severity)}`}>
+                      {cluster.severity}
                     </span>
-                  ))}
-                  {finding.reportedByModels.length > 1 && (
-                    <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-indigo-400" />
-                      Model Consensus
+                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border uppercase ${getStatusBadge(cluster.status)}`}>
+                      {cluster.status}
+                    </span>
+                    <h4 className="font-semibold text-slate-200 text-sm">
+                      {cluster.title}
+                    </h4>
+                  </div>
+                  {cluster.file && (
+                    <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-900 text-cyan-300 border border-slate-800">
+                      {cluster.file}
                     </span>
                   )}
                 </div>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {cluster.description}
+                </p>
+
+                {/* Evidence & Reporter Details Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-medium text-slate-400">Identified by:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {cluster.reportedByModels.map((m, mIdx) => (
+                        <span
+                          key={mIdx}
+                          className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/60 font-medium"
+                        >
+                          {m}
+                        </span>
+                      ))}
+                      {cluster.reportedByModels.length > 1 && (
+                        <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3 text-indigo-400" />
+                          Consensus ({cluster.reportedByModels.length} models)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {cluster.instances && cluster.instances.length > 0 && (
+                    <button
+                      onClick={() => toggleCluster(clusterKey)}
+                      className="flex items-center space-x-1 text-indigo-400 hover:text-indigo-300 transition text-xs font-medium cursor-pointer"
+                    >
+                      <span>{isExpanded ? 'Hide Evidence' : `View Evidence (${cluster.instances.length})`}</span>
+                      {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    </button>
+                  )}
+                </div>
+
+                {/* Expanded Evidence Drawer */}
+                {isExpanded && cluster.instances && (
+                  <div className="mt-3 pt-3 border-t border-slate-800/60 space-y-2.5">
+                    <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                      <SearchCheck className="w-3.5 h-3.5 text-indigo-400" />
+                      Original Model Reports & Evidence
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      {cluster.instances.map((inst, iIdx) => (
+                        <div key={iIdx} className="bg-slate-900/90 rounded-lg p-3 border border-slate-800 text-xs space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <span className="font-semibold text-indigo-300">{inst.reported_by || 'Model'}</span>
+                            <span className="font-mono text-[10px] text-slate-400">{inst.file}</span>
+                          </div>
+                          <div className="text-slate-300">{inst.title}</div>
+                          {inst.description && <p className="text-slate-400 text-[11px]">{inst.description}</p>}
+                          {inst.evidence && (
+                            <div className="bg-slate-950 p-2 rounded border border-slate-800/80 font-mono text-[11px] text-slate-300">
+                              <span className="text-slate-500 block text-[10px]">Evidence snippet:</span>
+                              {inst.evidence}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -308,8 +384,9 @@ export const ConsensusOverview: React.FC<ConsensusOverviewProps> = ({
               <p className="text-2xl font-bold text-white mt-1">{targetMetrics.total_files.toLocaleString()}</p>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-              <span className="text-xs text-slate-400">Lines of Code</span>
+              <span className="text-xs text-slate-400">Code Lines</span>
               <p className="text-2xl font-bold text-indigo-400 mt-1">{targetMetrics.code_lines.toLocaleString()}</p>
+              <span className="text-[10px] text-slate-500">Physical: {targetMetrics.total_lines.toLocaleString()}</span>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <span className="text-xs text-slate-400">Directories</span>

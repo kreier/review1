@@ -2,6 +2,7 @@
 model: "Gemini 3.8 Flash"
 model_id: "gemini-3-8-flash"
 target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
+target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
 review_date: "2026-10-30"
 scores:
   overall: 8.8
@@ -19,18 +20,42 @@ key_weaknesses:
   - "Stateful in-memory concurrency gate (WorkGate) limits horizontal scalability across multiple container instances"
   - "Missing automated IP-level rate-limiting middleware on public health and WebRTC endpoints"
 security_findings:
-  - severity: "MEDIUM"
+  - id: "SEC-GEMINI-001"
+    severity: "MEDIUM"
+    status: "verified"
+    confidence: 0.94
+    category: "availability"
     title: "Denial-of-Service Risk via Unthrottled Public Endpoints"
     file: "app/main.py & app/mobile_api.py"
+    line_start: 35
+    line_end: 60
+    affected_function: "health & webrtc"
     description: "While WorkGate caps active inference to 2 slots, public endpoints (/api/health, /api/webrtc/offer) lack IP-based rate limiting, allowing connection flooding."
-  - severity: "LOW"
+    evidence: "FastAPI routers declare no request throttling or IP limiters on exposed /health or /api/webrtc/offer endpoints."
+    recommendation: "Wrap FastAPI with slowapi or enforce rate limits at ingress proxy."
+  - id: "SEC-GEMINI-002"
+    severity: "LOW"
+    status: "verified"
+    confidence: 0.88
+    category: "persistence"
     title: "Local State Dependency in Guidance Storage"
     file: "app/guidance_storage.py"
+    line_start: 22
+    line_end: 50
+    affected_function: "get_connection"
     description: "Guidance sessions rely on local SQLite/in-memory storage; container restarts without persistent volume mounts will drop active multi-turn guidance state."
-  - severity: "LOW"
+    evidence: "Database connection opens local file SQLite instance without transactional replication or external persistence."
+    recommendation: "Mount persistent volume in Docker container or migrate to hosted PostgreSQL/Redis."
+  - id: "SEC-GEMINI-003"
+    severity: "LOW"
+    status: "probable"
+    confidence: 0.85
+    category: "licensing"
     title: "Missing Root Repository License"
     file: "README.md"
     description: "Repository documentation acknowledges the license is missing; creates legal ambiguity for third-party contributors and pilot testers."
+    evidence: "README explicitly references absent license terms and prospective licensing."
+    recommendation: "Adopt standard open-source license file (MIT or Apache 2.0)."
 ---
 
 # Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị
@@ -121,9 +146,9 @@ APEC_mat_kinh_cho_nguoi_khiem_thi/
 ## 5. Documentation Assessment
 - **Rating:** 9.0 / 10
 - **Depth & Completeness:** The `docs/` directory contains 15 comprehensive guides:
-  - [`MOBILE_ARCHITECTURE.md`](file:///Users/mk/github/review1/target/APEC_mat_kinh_cho_nguoi_khiem_thi/docs/MOBILE_ARCHITECTURE.md): Complete data flow and error code specifications.
-  - [`HARDWARE_CONTROLS_030.md`](file:///Users/mk/github/review1/target/APEC_mat_kinh_cho_nguoi_khiem_thi/docs/HARDWARE_CONTROLS_030.md): Technical breakdown of native Android volume key intercepts.
-  - [`ANDROID_ACCEPTANCE.md`](file:///Users/mk/github/review1/target/APEC_mat_kinh_cho_nguoi_khiem_thi/docs/ANDROID_ACCEPTANCE.md): Testing checklist specifically tailored for blind pilot participants.
+  - [`MOBILE_ARCHITECTURE.md`](docs/MOBILE_ARCHITECTURE.md): Complete data flow and error code specifications.
+  - [`HARDWARE_CONTROLS_030.md`](docs/HARDWARE_CONTROLS_030.md): Technical breakdown of native Android volume key intercepts.
+  - [`ANDROID_ACCEPTANCE.md`](docs/ANDROID_ACCEPTANCE.md): Testing checklist specifically tailored for blind pilot participants.
 - **Code Comments:** Extensive inline documentation and Vietnamese language localization strings across both client and server.
 
 ---

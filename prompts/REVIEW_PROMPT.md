@@ -1,6 +1,14 @@
-# AI Repository Review Prompt
+# AI Repository Review Master Prompt
 
-Use this standardized prompt when asking an AI model (e.g., Claude, Gemini, GPT-4o, DeepSeek, Llama) to inspect the repository inside the `target/` folder.
+Use this standardized prompt when asking an AI model (e.g., Claude 3.7 Sonnet, Gemini 3.8 Flash, GPT-4o, DeepSeek-R1) to inspect the repository inside the `target/` folder.
+
+---
+
+## Instructions for Reviewers
+
+1. **Deterministic Ground Truth**: Do not guess file counts or lines of code. Always consult `target-metrics.json` (produced by `python3 scripts/analyze-target.py target`) for exact numbers.
+2. **Relative Paths Only**: Always use repository-relative paths (e.g., `app/main.py`, `docs/ARCH.md`). Never include local machine or absolute paths (`/Users/...`, `/home/...`).
+3. **Evidence Requirement**: Ground all security and architectural observations in actual code snippets and line numbers. Classify each finding as `verified` (confirmed code evidence), `probable` (likely risk depending on environment), or `unverified` (design observation).
 
 ---
 
@@ -10,47 +18,62 @@ Use this standardized prompt when asking an AI model (e.g., Claude, Gemini, GPT-
 You are a Principal Software Architect and Application Security Auditor.
 Your task is to thoroughly analyze the repository code located in the `target/` folder and generate a comprehensive technical review report.
 
-Please inspect the codebase for:
-1. Used Language(s) & Tech Stack (runtimes, frameworks, dependencies, build tools)
-2. Project Scope & Architecture (purpose, core functionality, component interactions)
-3. Repository Size & Metrics (number of files, lines of code, complexity distribution)
-4. Directory Structure & Organization (modularity, separation of concerns, clean architecture)
-5. Documentation Quality (README completeness, installation guides, API references, inline docstrings)
-6. Security Flaws & Vulnerabilities (secret leaks, injection risks, dependency issues, permission flaws, error handling)
-7. Final Assessment & Scorecard (0-10 scores and actionable recommendations)
+Please inspect the codebase across the 15 standard investigation dimensions:
+1. Project Identity & Purpose (problem domain, target audience, maintenance maturity)
+2. Technology Stack & Runtimes (languages, frameworks, build tools, declared vs used)
+3. Quantitative Scope & Metrics (refer to deterministic metrics from target-metrics.json)
+4. Repository Structure & Architecture (layers, modularity, entry points, design patterns)
+5. Code Quality & Maintainability (typing discipline, complexity, naming, dead code)
+6. Dependencies & Supply Chain (pinning, known CVEs, outdated packages)
+7. Testing & Quality Assurance (unit/integration suites, coverage, mocking hygiene)
+8. Security Posture (secrets, injection, rate limiting, auth, data privacy)
+9. API & Interfaces (REST/WebSocket endpoints, schema validation boundaries)
+10. Data Persistence & State (migrations, local storage, persistence durability)
+11. Performance & Concurrency (async loops, thread pools, admission gates)
+12. Deployment & Containerization (Docker, unprivileged users, environment variables)
+13. Documentation Quality (README, architecture guides, inline docstrings)
+14. Licensing & Legal Compliance (root license, third-party model weights / assets)
+15. Actionable Roadmap (prioritized short-term and medium-term recommendations)
 
 ### Output Format Requirement:
 You MUST start your response with a YAML frontmatter block enclosed in `---`, followed by your detailed Markdown report.
 
 ---
-model: "<Exact Model Name, e.g. Gemini 2.5 Pro / Claude 3.7 Sonnet / GPT-4o>"
-model_id: "<kebab-case-id, e.g. gemini-2-5-pro, claude-3-7-sonnet, gpt-4o, deepseek-r1>"
-target_repo: "<Repository Name or target>"
+model: "<Exact Model Name, e.g. Gemini 3.8 Flash / Claude 3.7 Sonnet / GPT-4o>"
+model_id: "<kebab-case-id, e.g. gemini-3-8-flash, claude-3-7-sonnet, gpt-4o, deepseek-r1>"
+target_repo: "<Repository Name>"
+target_commit: "<Target Git Commit SHA from target-metrics.json if available>"
 review_date: "<YYYY-MM-DD>"
 scores:
-  overall: <0.0 - 10.0>
-  architecture: <0.0 - 10.0>
-  code_quality: <0.0 - 10.0>
-  security: <0.0 - 10.0>
-  documentation: <0.0 - 10.0>
-summary: "<2-3 sentence executive summary of the repository assessment>"
+  overall: <0.0 - 10.0 or null>
+  architecture: <0.0 - 10.0 or null>
+  code_quality: <0.0 - 10.0 or null>
+  security: <0.0 - 10.0 or null>
+  documentation: <0.0 - 10.0 or null>
+summary: "<2-3 sentence executive synopsis of the repository assessment>"
 key_strengths:
-  - "<Strength 1>"
-  - "<Strength 2>"
-  - "<Strength 3>"
+  - "<Key technical strength 1>"
+  - "<Key technical strength 2>"
+  - "<Key technical strength 3>"
 key_weaknesses:
-  - "<Weakness 1>"
-  - "<Weakness 2>"
-  - "<Weakness 3>"
+  - "<Key weakness or limitation 1>"
+  - "<Key weakness or limitation 2>"
+  - "<Key weakness or limitation 3>"
 security_findings:
-  - severity: "CRITICAL" # CRITICAL | HIGH | MEDIUM | LOW
-    title: "<Short title of flaw>"
-    file: "<Path or component affected>"
-    description: "<Brief explanation of risk>"
-  - severity: "HIGH"
-    title: "<Short title of flaw>"
-    file: "<Path or component affected>"
-    description: "<Brief explanation of risk>"
+  - id: "SEC-001"
+    severity: "HIGH" # CRITICAL | HIGH | MEDIUM | LOW
+    status: "verified" # verified | probable | unverified
+    confidence: 0.95 # 0.0 to 1.0
+    category: "availability" # credentials | injection | availability | persistence | licensing | network
+    title: "<Short, descriptive title of vulnerability>"
+    file: "<Repository-relative path, e.g. app/main.py>"
+    line_start: 120
+    line_end: 145
+    affected_function: "<Name of function or component>"
+    description: "<Clear explanation of the flaw and its mechanism>"
+    evidence: "<Code snippet or configuration line proving the finding>"
+    impact: "<Concrete consequence if exploited>"
+    recommendation: "<Specific remediation steps and code changes>"
 ---
 
 # Technical Review Report: [Project Name]
@@ -64,7 +87,7 @@ security_findings:
 - **Build Tools & Environment**: [Package managers, bundlers, compilers]
 
 ## 3. Quantitative Metrics & Code Scope
-- **File Counts & Lines of Code**: [Discussion of codebase size and density]
+- **File Counts & Lines of Code**: [Discussion of codebase size, executable lines vs data]
 - **Complexity Assessment**: [High vs low complexity components]
 - **Test Coverage & Quality**: [Presence, nature, and thoroughness of unit/integration tests]
 
@@ -95,8 +118,9 @@ security_findings:
 ## How to Save the Report
 
 1. Save each model's output as a Markdown file in the `reports/` folder:
-   - `reports/gemini-2-5-pro.md`
+   - `reports/gemini-3-8-flash.md`
    - `reports/claude-3-7-sonnet.md`
    - `reports/gpt-4o.md`
    - `reports/deepseek-r1.md`
-2. Run `npm run compile-reports` (or `npm run build` / `npm run dev`) to compile the reviews into the Vite dashboard.
+2. Run `npm test` to validate syntax and schema adherence.
+3. Run `npm run compile-reports` (or `npm run build` / `npm run dev`) to compile the reviews into the Vite dashboard.

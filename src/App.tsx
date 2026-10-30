@@ -63,7 +63,8 @@ export function App() {
               <div className="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 shadow-sm text-center">
                 <span className="text-[11px] text-slate-400 uppercase font-semibold block">Consensus Score</span>
                 <span className="text-xl font-extrabold text-indigo-400">
-                  {reportsData.average_scores.overall} <span className="text-xs text-slate-500">/ 10</span>
+                  {reportsData.average_scores.overall !== null ? reportsData.average_scores.overall : '—'}{' '}
+                  {reportsData.average_scores.overall !== null && <span className="text-xs text-slate-500">/ 10</span>}
                 </span>
               </div>
               <div className="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 shadow-sm text-center">

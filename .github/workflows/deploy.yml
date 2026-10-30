@@ -22,31 +22,42 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js (LTS 22)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
-      - name: Install Dependencies
+      - name: Install Node Dependencies
         run: npm ci
 
-      - name: Run Target Analysis (if target repository is present)
+      - name: Run Automated Unit Tests & Report Validation
+        run: |
+          npm test
+          python3 -m unittest discover tests
+          npm run validate-reports
+          npm run typecheck
+
+      - name: Check Target Repository & Run Deterministic Analysis
         run: |
           if [ -d "target" ] && [ -n "$(find target -mindepth 1 ! -name '.gitkeep' ! -name 'README.md' 2>/dev/null | head -n 1)" ]; then
-            python3 scripts/analyze-target.py target || true
+            echo "Target repository detected. Running deterministic code & metric analyzer..."
+            python3 scripts/analyze-target.py target
+            echo "✅ Target repository successfully analyzed."
+          else
+            echo "ℹ️ No target repository detected. Proceeding with pre-compiled metrics."
           fi
 
-      - name: Compile Model Reports & Build Website
+      - name: Compile Model Reports & Build Dashboard
         env:
           VITE_BASE_PATH: /review1/
         run: |
-          npm run compile-reports
           npm run build
 
       - name: Upload Pages Artifact

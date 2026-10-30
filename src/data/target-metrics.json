@@ -1,105 +1,204 @@
 {
+  "analyzer_version": "2.0.0",
+  "analyzed_at": "2026-10-30T06:47:08.630691+00:00",
   "target_path": "target/APEC_mat_kinh_cho_nguoi_khiem_thi",
+  "git_info": {
+    "commit_hash": "d9ba1e0d42e1241471b1fb58df1efb9d345c6721",
+    "short_hash": "d9ba1e0",
+    "branch": "main",
+    "commit_date": "2026-10-28 12:41:05 +0700",
+    "author": "Matthias Kreier",
+    "commit_message": "Update README with license and LIDAR sensor details",
+    "remote_url": "https://github.com/thanh1912-ut/APEC_mat_kinh_cho_nguoi_khiem_thi.git"
+  },
   "total_files": 138,
   "total_dirs": 34,
   "total_lines": 27525,
-  "code_lines": 25760,
+  "code_lines": 13282,
+  "comment_lines": 254,
   "blank_lines": 1765,
+  "doc_lines": 627,
+  "data_lines": 11597,
   "languages": {
-    "Other (.txt)": {
-      "files": 2,
-      "lines": 71,
-      "code_lines": 69
+    "Plain Text": {
+      "files": 5,
+      "lines": 175,
+      "code_lines": 99,
+      "comment_lines": 0,
+      "blank_lines": 7,
+      "doc_lines": 69,
+      "data_lines": 0,
+      "category": "doc"
     },
     "Dockerfile": {
       "files": 1,
       "lines": 30,
-      "code_lines": 29
+      "code_lines": 29,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
     },
     "TOML": {
       "files": 1,
       "lines": 27,
-      "code_lines": 25
+      "code_lines": 25,
+      "comment_lines": 0,
+      "blank_lines": 2,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
     },
     "Markdown": {
       "files": 15,
       "lines": 841,
-      "code_lines": 558
-    },
-    "Plain Text": {
-      "files": 3,
-      "lines": 104,
-      "code_lines": 99
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 283,
+      "doc_lines": 558,
+      "data_lines": 0,
+      "category": "doc"
     },
     "Other (.example)": {
       "files": 2,
       "lines": 22,
-      "code_lines": 21
+      "code_lines": 21,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "JSON": {
       "files": 7,
       "lines": 11552,
-      "code_lines": 11552
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 11552,
+      "category": "data"
     },
     "SQL": {
       "files": 1,
       "lines": 44,
-      "code_lines": 44
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 44,
+      "category": "data"
     },
     "Python": {
       "files": 39,
       "lines": 6952,
-      "code_lines": 5915
+      "code_lines": 5729,
+      "comment_lines": 186,
+      "blank_lines": 1037,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "HTML": {
       "files": 1,
       "lines": 127,
-      "code_lines": 122
+      "code_lines": 122,
+      "comment_lines": 0,
+      "blank_lines": 5,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "CSS": {
       "files": 1,
       "lines": 759,
-      "code_lines": 758
+      "code_lines": 758,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "JavaScript": {
       "files": 4,
       "lines": 714,
-      "code_lines": 672
+      "code_lines": 671,
+      "comment_lines": 1,
+      "blank_lines": 42,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "TypeScript (React)": {
       "files": 14,
       "lines": 1890,
-      "code_lines": 1754
+      "code_lines": 1747,
+      "comment_lines": 7,
+      "blank_lines": 136,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "TypeScript": {
       "files": 37,
       "lines": 3951,
-      "code_lines": 3744
+      "code_lines": 3700,
+      "comment_lines": 44,
+      "blank_lines": 207,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "YAML": {
       "files": 1,
       "lines": 11,
-      "code_lines": 11
+      "code_lines": 11,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
     },
     "Other (.gradle)": {
       "files": 1,
       "lines": 19,
-      "code_lines": 16
+      "code_lines": 16,
+      "comment_lines": 0,
+      "blank_lines": 3,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "Kotlin": {
       "files": 4,
       "lines": 385,
-      "code_lines": 345
+      "code_lines": 333,
+      "comment_lines": 12,
+      "blank_lines": 40,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     "XML": {
       "files": 1,
       "lines": 1,
-      "code_lines": 1
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 1,
+      "category": "data"
     },
     "Shell Script": {
       "files": 3,
       "lines": 25,
-      "code_lines": 25
+      "code_lines": 21,
+      "comment_lines": 4,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     }
   },
   "key_files": {
@@ -172,7 +271,53 @@
       "mobile/modules/mat-kinh-controls/android/src/test/java/expo/modules/matkinhcontrols/VolumeKeyPolicyTest.kt"
     ]
   },
-  "security_flags": [],
+  "security_flags": [
+    {
+      "file": "tests/test_evaluate_mobile.py",
+      "type": "Hardcoded Credentials in Assignment",
+      "severity": "MEDIUM",
+      "category": "secret",
+      "match": "secr...e\"",
+      "confidence": 0.85,
+      "scanner": "heuristic_regex_preliminary"
+    },
+    {
+      "file": "tests/test_mobile_vision.py",
+      "type": "Hardcoded Credentials in Assignment",
+      "severity": "MEDIUM",
+      "category": "secret",
+      "match": "api_...y\"",
+      "confidence": 0.85,
+      "scanner": "heuristic_regex_preliminary"
+    },
+    {
+      "file": "tests/test_guidance.py",
+      "type": "Hardcoded Credentials in Assignment",
+      "severity": "MEDIUM",
+      "category": "secret",
+      "match": "api_...y\"",
+      "confidence": 0.85,
+      "scanner": "heuristic_regex_preliminary"
+    },
+    {
+      "file": "tests/test_guidance.py",
+      "type": "Hardcoded Credentials in Assignment",
+      "severity": "MEDIUM",
+      "category": "secret",
+      "match": "api_...y\"",
+      "confidence": 0.85,
+      "scanner": "heuristic_regex_preliminary"
+    },
+    {
+      "file": "tests/test_vision.py",
+      "type": "Hardcoded Credentials in Assignment",
+      "severity": "MEDIUM",
+      "category": "secret",
+      "match": "api_...t\"",
+      "confidence": 0.85,
+      "scanner": "heuristic_regex_preliminary"
+    }
+  ],
   "structure": [
     {
       "name": "app",
@@ -667,6 +812,10 @@
       "is_dir": false
     },
     {
+      "name": ".gitignore",
+      "is_dir": false
+    },
+    {
       "name": "Dockerfile",
       "is_dir": false
     },
@@ -693,118 +842,202 @@
   ],
   "languages_sorted": [
     {
-      "name": "JSON",
-      "files": 7,
-      "lines": 11552,
-      "code_lines": 11552
-    },
-    {
       "name": "Python",
       "files": 39,
       "lines": 6952,
-      "code_lines": 5915
+      "code_lines": 5729,
+      "comment_lines": 186,
+      "blank_lines": 1037,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "TypeScript",
       "files": 37,
       "lines": 3951,
-      "code_lines": 3744
+      "code_lines": 3700,
+      "comment_lines": 44,
+      "blank_lines": 207,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "TypeScript (React)",
       "files": 14,
       "lines": 1890,
-      "code_lines": 1754
+      "code_lines": 1747,
+      "comment_lines": 7,
+      "blank_lines": 136,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "CSS",
       "files": 1,
       "lines": 759,
-      "code_lines": 758
+      "code_lines": 758,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "JavaScript",
       "files": 4,
       "lines": 714,
-      "code_lines": 672
-    },
-    {
-      "name": "Markdown",
-      "files": 15,
-      "lines": 841,
-      "code_lines": 558
+      "code_lines": 671,
+      "comment_lines": 1,
+      "blank_lines": 42,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "Kotlin",
       "files": 4,
       "lines": 385,
-      "code_lines": 345
+      "code_lines": 333,
+      "comment_lines": 12,
+      "blank_lines": 40,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "HTML",
       "files": 1,
       "lines": 127,
-      "code_lines": 122
+      "code_lines": 122,
+      "comment_lines": 0,
+      "blank_lines": 5,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "Plain Text",
-      "files": 3,
-      "lines": 104,
-      "code_lines": 99
-    },
-    {
-      "name": "Other (.txt)",
-      "files": 2,
-      "lines": 71,
-      "code_lines": 69
-    },
-    {
-      "name": "SQL",
-      "files": 1,
-      "lines": 44,
-      "code_lines": 44
+      "files": 5,
+      "lines": 175,
+      "code_lines": 99,
+      "comment_lines": 0,
+      "blank_lines": 7,
+      "doc_lines": 69,
+      "data_lines": 0,
+      "category": "doc"
     },
     {
       "name": "Dockerfile",
       "files": 1,
       "lines": 30,
-      "code_lines": 29
+      "code_lines": 29,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
     },
     {
       "name": "TOML",
       "files": 1,
       "lines": 27,
-      "code_lines": 25
+      "code_lines": 25,
+      "comment_lines": 0,
+      "blank_lines": 2,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
     },
     {
       "name": "Shell Script",
       "files": 3,
       "lines": 25,
-      "code_lines": 25
+      "code_lines": 21,
+      "comment_lines": 4,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "Other (.example)",
       "files": 2,
       "lines": 22,
-      "code_lines": 21
+      "code_lines": 21,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "Other (.gradle)",
       "files": 1,
       "lines": 19,
-      "code_lines": 16
+      "code_lines": 16,
+      "comment_lines": 0,
+      "blank_lines": 3,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "code"
     },
     {
       "name": "YAML",
       "files": 1,
       "lines": 11,
-      "code_lines": 11
+      "code_lines": 11,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 0,
+      "category": "config"
+    },
+    {
+      "name": "JSON",
+      "files": 7,
+      "lines": 11552,
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 11552,
+      "category": "data"
+    },
+    {
+      "name": "Markdown",
+      "files": 15,
+      "lines": 841,
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 283,
+      "doc_lines": 558,
+      "data_lines": 0,
+      "category": "doc"
+    },
+    {
+      "name": "SQL",
+      "files": 1,
+      "lines": 44,
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 44,
+      "category": "data"
     },
     {
       "name": "XML",
       "files": 1,
       "lines": 1,
-      "code_lines": 1
+      "code_lines": 0,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "doc_lines": 0,
+      "data_lines": 1,
+      "category": "data"
     }
   ]
 }

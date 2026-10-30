@@ -4,11 +4,15 @@ import {
   FolderTree, 
   FileCode2, 
   Files, 
-  Folder, 
   FileText, 
   Settings, 
   ShieldAlert, 
-  Code
+  Code,
+  GitCommit,
+  GitBranch,
+  Calendar,
+  User,
+  Layers
 } from 'lucide-react';
 
 interface TargetMetricsViewProps {
@@ -42,6 +46,7 @@ export const TargetMetricsView: React.FC<TargetMetricsViewProps> = ({ metrics })
 
   const languages = metrics.languages_sorted || [];
   const totalCodeLines = metrics.code_lines || 1;
+  const git = metrics.git_info;
 
   // Language color palette
   const langColors = [
@@ -51,6 +56,58 @@ export const TargetMetricsView: React.FC<TargetMetricsViewProps> = ({ metrics })
 
   return (
     <div className="space-y-6">
+      {/* Target Git Commit Information Card */}
+      {git && git.commit_hash && (
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                <GitCommit className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Target Commit:</span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-950 text-cyan-300 border border-slate-800 font-bold">
+                    {git.short_hash || git.commit_hash.slice(0, 7)}
+                  </span>
+                  {git.branch && (
+                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                      <GitBranch className="w-3.5 h-3.5 text-slate-500" />
+                      {git.branch}
+                    </span>
+                  )}
+                </div>
+                {git.commit_message && (
+                  <p className="text-xs text-slate-300 font-medium mt-1 truncate max-w-xl">
+                    "{git.commit_message}"
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
+              {git.author && (
+                <div className="flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-slate-500" />
+                  <span>{git.author}</span>
+                </div>
+              )}
+              {git.commit_date && (
+                <div className="flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                  <span>{git.commit_date.split(' ')[0]}</span>
+                </div>
+              )}
+              {metrics.analyzed_at && (
+                <span className="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
+                  Analyzed: {new Date(metrics.analyzed_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top Stat Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
@@ -60,34 +117,85 @@ export const TargetMetricsView: React.FC<TargetMetricsViewProps> = ({ metrics })
           <p className="text-2xl font-extrabold text-white mt-1">
             {metrics.total_files.toLocaleString()}
           </p>
+          <span className="text-[10px] text-slate-500">{metrics.total_dirs} directories</span>
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
           <span className="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
-            <Code className="w-4 h-4 text-cyan-400" /> Lines of Code
+            <Code className="w-4 h-4 text-cyan-400" /> Code Lines (LOC)
           </span>
           <p className="text-2xl font-extrabold text-cyan-300 mt-1">
             {metrics.code_lines.toLocaleString()}
           </p>
-          <span className="text-[10px] text-slate-500">Total lines: {metrics.total_lines.toLocaleString()}</span>
+          <span className="text-[10px] text-slate-500">Excludes docs, comments & data</span>
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
           <span className="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
-            <Folder className="w-4 h-4 text-amber-400" /> Directories
+            <Layers className="w-4 h-4 text-amber-400" /> Physical Lines
           </span>
           <p className="text-2xl font-extrabold text-white mt-1">
-            {metrics.total_dirs.toLocaleString()}
+            {metrics.total_lines.toLocaleString()}
           </p>
+          <span className="text-[10px] text-slate-500">{(metrics.blank_lines || 0).toLocaleString()} blank lines</span>
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
           <span className="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
-            <FileText className="w-4 h-4 text-emerald-400" /> Docs & Configs
+            <FileText className="w-4 h-4 text-emerald-400" /> Docs & Data
           </span>
           <p className="text-2xl font-extrabold text-emerald-300 mt-1">
-            {metrics.key_files.docs.length + metrics.key_files.configs.length}
+            {((metrics.doc_lines || 0) + (metrics.data_lines || 0)).toLocaleString()}
           </p>
+          <span className="text-[10px] text-slate-500">{metrics.key_files.docs.length} documentation files</span>
+        </div>
+      </div>
+
+      {/* Granular Line Classification Matrix */}
+      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">
+          Granular Line Category Breakdown
+        </h4>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span className="text-[11px] text-cyan-400 font-semibold block">Executable Code</span>
+            <span className="text-lg font-bold text-white mt-0.5 block">{metrics.code_lines.toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500">
+              {((metrics.code_lines / metrics.total_lines) * 100).toFixed(1)}% of physical
+            </span>
+          </div>
+
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span className="text-[11px] text-indigo-400 font-semibold block">Data Files (JSON/SQL)</span>
+            <span className="text-lg font-bold text-white mt-0.5 block">{(metrics.data_lines || 0).toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500">
+              {(((metrics.data_lines || 0) / metrics.total_lines) * 100).toFixed(1)}% of physical
+            </span>
+          </div>
+
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span className="text-[11px] text-emerald-400 font-semibold block">Documentation (MD/Doc)</span>
+            <span className="text-lg font-bold text-white mt-0.5 block">{(metrics.doc_lines || 0).toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500">
+              {(((metrics.doc_lines || 0) / metrics.total_lines) * 100).toFixed(1)}% of physical
+            </span>
+          </div>
+
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span className="text-[11px] text-amber-400 font-semibold block">Comments</span>
+            <span className="text-lg font-bold text-white mt-0.5 block">{(metrics.comment_lines || 0).toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500">
+              {(((metrics.comment_lines || 0) / metrics.total_lines) * 100).toFixed(1)}% of physical
+            </span>
+          </div>
+
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 col-span-2 sm:col-span-1">
+            <span className="text-[11px] text-slate-400 font-semibold block">Blank Lines</span>
+            <span className="text-lg font-bold text-white mt-0.5 block">{metrics.blank_lines.toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500">
+              {((metrics.blank_lines / metrics.total_lines) * 100).toFixed(1)}% of physical
+            </span>
+          </div>
         </div>
       </div>
 
@@ -178,7 +286,7 @@ export const TargetMetricsView: React.FC<TargetMetricsViewProps> = ({ metrics })
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5">
           <div className="flex items-center space-x-2 text-rose-400 mb-3">
             <ShieldAlert className="w-4 h-4" />
-            <h4 className="text-sm font-bold text-white">Automated Secret / Flag Checks</h4>
+            <h4 className="text-sm font-bold text-white">Automated Secret & Flag Checks</h4>
           </div>
           <ul className="space-y-1.5 text-xs text-slate-300 max-h-48 overflow-y-auto">
             {metrics.security_flags.length === 0 ? (
@@ -186,12 +294,23 @@ export const TargetMetricsView: React.FC<TargetMetricsViewProps> = ({ metrics })
             ) : (
               metrics.security_flags.map((s, i) => (
                 <li key={i} className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
-                  <div className="font-semibold">{s.type}</div>
-                  <div className="font-mono text-[10px] text-slate-400 truncate">{s.file}</div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">{s.type}</span>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-900 border border-rose-500/30 uppercase">
+                      {s.severity || 'WARN'}
+                    </span>
+                  </div>
+                  <div className="font-mono text-[10px] text-slate-400 truncate mt-0.5">{s.file}</div>
+                  {s.match && (
+                    <div className="font-mono text-[10px] text-rose-300/80 mt-1">Match: {s.match}</div>
+                  )}
                 </li>
               ))
             )}
           </ul>
+          <div className="text-[10px] text-slate-500 mt-2">
+            * Preliminary heuristic pattern scan. Does not substitute a full static security analysis.
+          </div>
         </div>
       </div>
     </div>

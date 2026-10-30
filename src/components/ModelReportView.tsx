@@ -44,7 +44,13 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const getScoreColor = (score: number) => {
+  const formatScore = (val: number | null | undefined) => {
+    if (val === null || val === undefined) return '—';
+    return val.toFixed(1);
+  };
+
+  const getScoreColor = (score: number | null | undefined) => {
+    if (score === null || score === undefined) return 'text-slate-400 bg-slate-800/50 border-slate-700/50';
     if (score >= 8.5) return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
     if (score >= 7.0) return 'text-blue-400 bg-blue-500/10 border-blue-500/30';
     if (score >= 5.0) return 'text-amber-400 bg-amber-500/10 border-amber-500/30';
@@ -79,7 +85,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               <span className={`text-[11px] px-1.5 py-0.2 rounded ${
                 isActive ? 'bg-indigo-700 text-indigo-100' : 'bg-slate-800 text-slate-400'
               }`}>
-                {r.scores.overall.toFixed(1)}
+                {formatScore(r.scores.overall)}
               </span>
             </button>
           );
@@ -146,7 +152,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               Overall <Award className="w-3.5 h-3.5 text-indigo-400" />
             </span>
             <div className={`mt-1 text-2xl font-bold ${getScoreColor(currentReport.scores.overall).split(' ')[0]}`}>
-              {currentReport.scores.overall}
+              {formatScore(currentReport.scores.overall)}
             </div>
           </div>
 
@@ -155,7 +161,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               Architecture <Layers className="w-3.5 h-3.5 text-cyan-400" />
             </span>
             <div className={`mt-1 text-2xl font-bold ${getScoreColor(currentReport.scores.architecture).split(' ')[0]}`}>
-              {currentReport.scores.architecture}
+              {formatScore(currentReport.scores.architecture)}
             </div>
           </div>
 
@@ -164,7 +170,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               Code Quality <FileCode2 className="w-3.5 h-3.5 text-blue-400" />
             </span>
             <div className={`mt-1 text-2xl font-bold ${getScoreColor(currentReport.scores.code_quality).split(' ')[0]}`}>
-              {currentReport.scores.code_quality}
+              {formatScore(currentReport.scores.code_quality)}
             </div>
           </div>
 
@@ -173,7 +179,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               Security <Lock className="w-3.5 h-3.5 text-rose-400" />
             </span>
             <div className={`mt-1 text-2xl font-bold ${getScoreColor(currentReport.scores.security).split(' ')[0]}`}>
-              {currentReport.scores.security}
+              {formatScore(currentReport.scores.security)}
             </div>
           </div>
 
@@ -182,7 +188,7 @@ export const ModelReportView: React.FC<ModelReportViewProps> = ({
               Documentation <BookCheck className="w-3.5 h-3.5 text-emerald-400" />
             </span>
             <div className={`mt-1 text-2xl font-bold ${getScoreColor(currentReport.scores.documentation).split(' ')[0]}`}>
-              {currentReport.scores.documentation}
+              {formatScore(currentReport.scores.documentation)}
             </div>
           </div>
         </div>

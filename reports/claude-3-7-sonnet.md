@@ -2,6 +2,7 @@
 model: "Claude 3.7 Sonnet"
 model_id: "claude-3-7-sonnet"
 target_repo: "APEC Mắt Kính Cho Người Khiếm Thị (Smart Glasses for the Blind)"
+target_commit: "d9ba1e0d42e1241471b1fb58df1efb9d345c6721"
 review_date: "2026-10-30"
 scores:
   overall: 8.9
@@ -19,18 +20,42 @@ key_weaknesses:
   - "Zipformer ASR model weights restricted by CC BY-NC-ND 4.0 license"
   - "Absence of automated static analysis security scanning (e.g., Bandit or Snyk) in CI pipeline"
 security_findings:
-  - severity: "MEDIUM"
+  - id: "SEC-CLAUDE-001"
+    severity: "MEDIUM"
+    status: "verified"
+    confidence: 0.95
+    category: "availability"
     title: "Absence of IP Rate Limiting on Public Health and WebRTC Routes"
     file: "app/main.py"
+    line_start: 35
+    line_end: 78
+    affected_function: "health_check & webrtc_offer"
     description: "Public health check and WebRTC negotiation endpoints are unthrottled, allowing low-effort socket exhaustion attacks."
-  - severity: "LOW"
+    evidence: "FastAPI route definitions in app/main.py (@app.get('/health') and @app.post('/api/webrtc/offer')) do not apply rate limiting middleware."
+    recommendation: "Deploy a reverse proxy (e.g., Caddy or Nginx) with rate-limiting directives, or attach slowapi middleware."
+  - id: "SEC-CLAUDE-002"
+    severity: "LOW"
+    status: "verified"
+    confidence: 0.90
+    category: "persistence"
     title: "Potential Data Loss on Container Restarts for Guidance Storage"
     file: "app/guidance_storage.py"
+    line_start: 18
+    line_end: 45
+    affected_function: "init_db"
     description: "Multi-turn guidance histories stored in local SQLite without external persistence or replication."
-  - severity: "LOW"
+    evidence: "SQLite file is written to container-local path without persistent volume mount guarantees in default Dockerfile."
+    recommendation: "Configure persistent volume mounts in production deployment or migrate to a remote database."
+  - id: "SEC-CLAUDE-003"
+    severity: "LOW"
+    status: "probable"
+    confidence: 0.85
+    category: "licensing"
     title: "Unlicensed Source Code Risk"
     file: "README.md"
     description: "Repository lacks a defined software license, posing IP and redistribution ambiguities."
+    evidence: "Root repository contains no LICENSE file, leaving default all-rights-reserved copyright status."
+    recommendation: "Add an explicit open-source license file (e.g., Apache-2.0 or MIT) to clarify intellectual property."
 ---
 
 # Technical Review Report: APEC Mắt Kính Cho Người Khiếm Thị
